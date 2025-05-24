@@ -216,7 +216,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
                 <div class="window-controls">
                     <button class="window-btn minimize-btn" title="Minimize">_</button>
-                    <button class="window-btn maximize-btn" title="Maximize">□</button>
                     <button class="window-btn close-btn" title="Close">×</button>
                 </div>
             </div>
@@ -245,6 +244,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         makeDraggable(windowEl);
         windowEl.addEventListener('mousedown', () => bringToFront(windowEl));
+        makeResizable(windowEl);
         
         return windowEl;
     }
@@ -427,7 +427,8 @@ document.addEventListener('DOMContentLoaded', function() {
     function makeDraggable(windowEl) {
         let isDragging = false, currentX, currentY, initialX, initialY;
         const windowHeader = windowEl.querySelector('.window-header');
-        
+        let animationFrameId = null;
+
         windowHeader.addEventListener('mousedown', e => {
             if (e.target.classList.contains('window-btn')) return;
             bringToFront(windowEl);
@@ -436,23 +437,150 @@ document.addEventListener('DOMContentLoaded', function() {
             initialY = e.clientY - rect.top;
             isDragging = true;
             windowEl.style.cursor = 'grabbing';
-        });
-        
-        document.addEventListener('mousemove', e => {
-            if (isDragging) {
-                e.preventDefault();
-                currentX = e.clientX - initialX;
-                currentY = e.clientY - initialY;
-                windowEl.style.left = currentX + 'px';
-                windowEl.style.top = currentY + 'px';
+            windowEl.style.userSelect = 'none'; // Prevent text selection during drag
+            document.body.style.cursor = 'grabbing';
+
+            function onMouseMove(e_move) {
+                if (!isDragging) return;
+                currentX = e_move.clientX - initialX;
+                currentY = e_move.clientY - initialY;
+
+                if (animationFrameId) cancelAnimationFrame(animationFrameId);
+
+                animationFrameId = requestAnimationFrame(() => {
+                    windowEl.style.left = currentX + 'px';
+                    windowEl.style.top = currentY + 'px';
+                });
             }
-        });
-        
-        document.addEventListener('mouseup', () => {
-            if(isDragging) {
+
+            function onMouseUp() {
+                if (animationFrameId) cancelAnimationFrame(animationFrameId);
                 isDragging = false;
                 windowEl.style.cursor = 'default';
+                windowEl.style.userSelect = '';
+                document.body.style.cursor = 'default';
+                document.removeEventListener('mousemove', onMouseMove);
+                document.removeEventListener('mouseup', onMouseUp);
             }
+
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        });
+    }
+
+    function makeResizable(windowEl) {
+        let isResizing = false;
+        let currentResizeMode = null; // e.g., 'right', 'bottom', 'bottom-right'
+        let lastMouseDownX, lastMouseDownY;
+        let initialWidth, initialHeight, initialX, initialY;
+        const edgeThreshold = 8; // Pixels from edge to trigger resize cursor
+        const minWidth = 200;
+        const minHeight = 150;
+        let animationFrameId = null;
+
+        windowEl.addEventListener('mousemove', e => {
+            if (isResizing) return; // Don't change cursor while actively resizing
+
+            const rect = windowEl.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            let onRightEdge = Math.abs(mouseX - rect.width) < edgeThreshold;
+            let onBottomEdge = Math.abs(mouseY - rect.height) < edgeThreshold;
+
+            if (onRightEdge && onBottomEdge) {
+                windowEl.style.cursor = 'nwse-resize';
+                currentResizeMode = 'bottom-right';
+            } else if (onRightEdge) {
+                windowEl.style.cursor = 'ew-resize';
+                currentResizeMode = 'right';
+            } else if (onBottomEdge) {
+                windowEl.style.cursor = 'ns-resize';
+                currentResizeMode = 'bottom';
+            } else {
+                windowEl.style.cursor = 'default';
+                currentResizeMode = null;
+            }
+        });
+
+        windowEl.addEventListener('mouseleave', () => {
+            if (!isResizing) {
+                windowEl.style.cursor = 'default';
+                currentResizeMode = null;
+            }
+        });
+
+        windowEl.addEventListener('mousedown', e => {
+            // Do not trigger resize if clicking on scrollbars or window controls
+            if (e.target !== windowEl && e.target.closest('.window-content-main, .window-header, .window-bottom-controls')){
+                 if (!currentResizeMode || (e.target.closest('.window-header') && !e.target.classList.contains('window-btn'))) {
+                     // if it's header but not a button, it means drag, not resize.
+                 } else {
+                    return;
+                 }
+            }
+            
+            if (!currentResizeMode) return; // Only start resize if a mode is set by mousemove
+            if (e.target.classList.contains('window-btn')) return; // Don't resize when clicking window buttons
+             // If the click is on the header and not a button, let drag handler take over
+            if (e.target.closest('.window-header') && !e.target.classList.contains('window-btn')) {
+                return;
+            }
+
+
+            isResizing = true;
+            lastMouseDownX = e.clientX;
+            lastMouseDownY = e.clientY;
+            const rect = windowEl.getBoundingClientRect();
+            initialWidth = rect.width;
+            initialHeight = rect.height;
+            initialX = rect.left;
+            initialY = rect.top;
+            
+            windowEl.style.userSelect = 'none';
+            document.body.style.cursor = windowEl.style.cursor; // Use the cursor already set by mousemove
+
+            function onDocumentMouseMove(e_move) {
+                if (!isResizing) return;
+
+                const deltaX = e_move.clientX - lastMouseDownX;
+                const deltaY = e_move.clientY - lastMouseDownY;
+                let newWidth = initialWidth;
+                let newHeight = initialHeight;
+
+                if (currentResizeMode === 'right' || currentResizeMode === 'bottom-right') {
+                    newWidth = initialWidth + deltaX;
+                }
+                if (currentResizeMode === 'bottom' || currentResizeMode === 'bottom-right') {
+                    newHeight = initialHeight + deltaY;
+                }
+
+                newWidth = Math.max(newWidth, minWidth);
+                newHeight = Math.max(newHeight, minHeight);
+
+                if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                animationFrameId = requestAnimationFrame(() => {
+                    if (currentResizeMode === 'right' || currentResizeMode === 'bottom-right') {
+                        windowEl.style.width = `${newWidth}px`;
+                    }
+                    if (currentResizeMode === 'bottom' || currentResizeMode === 'bottom-right') {
+                        windowEl.style.height = `${newHeight}px`;
+                    }
+                });
+            }
+
+            function onDocumentMouseUp() {
+                if (animationFrameId) cancelAnimationFrame(animationFrameId);
+                isResizing = false;
+                windowEl.style.userSelect = '';
+                document.body.style.cursor = 'default';
+                // Keep windowEl.style.cursor as it might be over an edge, let mousemove reset it.
+                document.removeEventListener('mousemove', onDocumentMouseMove);
+                document.removeEventListener('mouseup', onDocumentMouseUp);
+            }
+
+            document.addEventListener('mousemove', onDocumentMouseMove);
+            document.addEventListener('mouseup', onDocumentMouseUp);
         });
     }
 

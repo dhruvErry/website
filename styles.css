@@ -211,31 +211,62 @@ body {
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2) inset;
 }
 
-.minimize-btn::before {
-    content: '';
-    width: 8px;
-    height: 2px;
-    background: #000;
-    display: block;
-    margin-top: 6px;
+.minimize-btn {
+    background-color: #0B57D0; /* Blue background */
+    border-top: 1px solid #5D9CF4;    /* Lighter blue for top bevel */
+    border-left: 1px solid #5D9CF4;   /* Lighter blue for left bevel */
+    border-right: 1px solid #0A4CB0;  /* Darker blue for right bevel */
+    border-bottom: 1px solid #0A4CB0; /* Darker blue for bottom bevel */
 }
 
-.maximize-btn::before {
-    content: '';
-    width: 8px;
-    height: 8px;
-    border: 1px solid #000;
-    border-bottom: 2px solid #000;
-    display: block;
-    box-sizing: border-box;
+.minimize-btn:hover {
+    background-color: #3A7FD4; /* Slightly lighter blue for hover */
+    border-top-color: #7FBFFF;
+    border-left-color: #7FBFFF;
+    border-right-color: #0B57D0;
+    border-bottom-color: #0B57D0;
 }
+
+.minimize-btn:active {
+    background-color: #0A4CB0; /* Darker blue for active/pressed */
+    border-top: 1px solid #083F90;    /* Darker for inverted bevel - corrected typo */
+    border-left: 1px solid #083F90;   /* Darker for inverted bevel - corrected typo */
+    border-right: 1px solid #5D9CF4;  /* Lighter for inverted bevel */
+    border-bottom: 1px solid #5D9CF4; /* Lighter for inverted bevel */
+    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2); /* Inner shadow for pressed look */
+}
+
+.minimize-btn::before {
+    content: '';
+    display: block;
+    width: 10px; /* Width of the white bar */
+    height: 2px; /* Height of the white bar */
+    background-color: white;
+    margin-top: 0; /* Remove old margin, rely on parent flex for centering */
+    border-radius: 1px; /* Slightly rounded ends for the bar */
+}
+
+/* .maximize-btn::before { */ /* Maximize button is removed, but keeping this commented for context if needed later */
+/*    content: ''; */
+/*    width: 8px; */
+/*    height: 8px; */
+/*    border: 1px solid #000; */
+/*    border-bottom: 2px solid #000; */
+/*    display: block; */
+/*    box-sizing: border-box; */
+/* } */
 
 .close-btn {
     background: linear-gradient(to bottom, #ff6b6b 0%, #ff5252 50%, #e53e3e 51%, #d32f2f 100%) !important;
     color: white !important;
     border-color: #c62828 !important;
     font-weight: bold;
-    font-size: 12px;
+    font-size: 12px; /* Restored font-size */
+    /* text-indent: -9999px; */ /* Removed text-indent */
+    /* background-image: url(...); */ /* Removed background-image properties */
+    /* background-size: 12px 12px; */
+    /* background-repeat: no-repeat; */
+    /* background-position: center; */
 }
 
 .close-btn:hover {
@@ -248,10 +279,11 @@ body {
 }
 
 .close-btn::before {
-    content: '×';
-    font-size: 14px;
-    line-height: 1;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
+    content: 'X'; /* Restored content */
+    font-size: 16px; /* Restored font-size */
+    font-weight: 900; /* Restored font-weight */
+    line-height: 0.9; /* Restored line-height */
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4); /* Restored text-shadow */
 }
 
 .window-content {
@@ -262,6 +294,7 @@ body {
     border-radius: 0 0 5px 5px;
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 .window-content-main {
