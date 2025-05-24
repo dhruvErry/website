@@ -212,38 +212,39 @@ body {
 }
 
 .minimize-btn {
-    background-color: #0B57D0; /* Blue background */
-    border-top: 1px solid #5D9CF4;    /* Lighter blue for top bevel */
-    border-left: 1px solid #5D9CF4;   /* Lighter blue for left bevel */
-    border-right: 1px solid #0A4CB0;  /* Darker blue for right bevel */
-    border-bottom: 1px solid #0A4CB0; /* Darker blue for bottom bevel */
+    background: #0078D7; /* XP Blue */
+    border-top: 1px solid #79B9F3;
+    border-left: 1px solid #79B9F3;
+    border-right: 1px solid #00539C;
+    border-bottom: 1px solid #00539C;
+    font-size: 0; /* Hide any direct text content */
 }
 
 .minimize-btn:hover {
-    background-color: #3A7FD4; /* Slightly lighter blue for hover */
-    border-top-color: #7FBFFF;
-    border-left-color: #7FBFFF;
-    border-right-color: #0B57D0;
-    border-bottom-color: #0B57D0;
+    background: #2691E9; /* Lighter blue for hover */
+    border-top-color: #A0D0F7;
+    border-left-color: #A0D0F7;
+    border-right-color: #0078D7;
+    border-bottom-color: #0078D7;
 }
 
 .minimize-btn:active {
-    background-color: #0A4CB0; /* Darker blue for active/pressed */
-    border-top: 1px solid #083F90;    /* Darker for inverted bevel - corrected typo */
-    border-left: 1px solid #083F90;   /* Darker for inverted bevel - corrected typo */
-    border-right: 1px solid #5D9CF4;  /* Lighter for inverted bevel */
-    border-bottom: 1px solid #5D9CF4; /* Lighter for inverted bevel */
-    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.2); /* Inner shadow for pressed look */
+    background: #00539C; /* Darker blue for active */
+    border-top: 1px solid #003C70;
+    border-left: 1px solid #003C70;
+    border-right: 1px solid #79B9F3;
+    border-bottom: 1px solid #79B9F3;
+    box-shadow: inset 1px 1px 1px rgba(0,0,0,0.2);
 }
 
 .minimize-btn::before {
     content: '';
     display: block;
-    width: 10px; /* Width of the white bar */
-    height: 2px; /* Height of the white bar */
+    width: 9px;
+    height: 3px;
     background-color: white;
-    margin-top: 0; /* Remove old margin, rely on parent flex for centering */
-    border-radius: 1px; /* Slightly rounded ends for the bar */
+    border-radius: 1px;
+    margin-top: 2px; /* Position adjust for thicker bar */
 }
 
 /* .maximize-btn::before { */ /* Maximize button is removed, but keeping this commented for context if needed later */
@@ -257,33 +258,43 @@ body {
 /* } */
 
 .close-btn {
-    background: linear-gradient(to bottom, #ff6b6b 0%, #ff5252 50%, #e53e3e 51%, #d32f2f 100%) !important;
-    color: white !important;
-    border-color: #c62828 !important;
+    background: #D83100; /* XP Red */
+    border-top: 1px solid #FCA888;
+    border-left: 1px solid #FCA888;
+    border-right: 1px solid #B42200;
+    border-bottom: 1px solid #B42200;
     font-weight: bold;
-    font-size: 12px; /* Restored font-size */
-    /* text-indent: -9999px; */ /* Removed text-indent */
-    /* background-image: url(...); */ /* Removed background-image properties */
-    /* background-size: 12px 12px; */
-    /* background-repeat: no-repeat; */
-    /* background-position: center; */
+    /* color: white; Color is for the ::before pseudo-element */
+    font-size: 0; /* Hide any direct text content */
 }
 
 .close-btn:hover {
-    background: linear-gradient(to bottom, #ff7a7a 0%, #ff6161 50%, #f44444 51%, #e23e3e 100%) !important;
-    border-color: #d42c2c !important;
+    background: #E96239; /* Lighter red for hover */
+    border-top-color: #FCC5AC;
+    border-left-color: #FCC5AC;
+    border-right-color: #D83100;
+    border-bottom-color: #D83100;
 }
 
 .close-btn:active {
-    background: linear-gradient(to bottom, #d32f2f 0%, #e53e3e 49%, #ff5252 50%, #ff6b6b 100%) !important;
+    background: #B42200; /* Darker red for active */
+    border-top: 1px solid #8E1B00;
+    border-left: 1px solid #8E1B00;
+    border-right: 1px solid #FCA888;
+    border-bottom: 1px solid #FCA888;
+    box-shadow: inset 1px 1px 1px rgba(0,0,0,0.2);
 }
 
 .close-btn::before {
-    content: 'X'; /* Restored content */
-    font-size: 16px; /* Restored font-size */
-    font-weight: 900; /* Restored font-weight */
-    line-height: 0.9; /* Restored line-height */
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4); /* Restored text-shadow */
+    content: 'X';
+    color: white; /* Ensure X is white */
+    font-family: "Lucida Console", Monaco, monospace;
+    font-size: 15px; /* This controls the X size */
+    font-weight: 900;
+    line-height: 21px; /* Assumes button height 21px */
+    text-align: center;
+    display: block;
+    text-shadow: 1px 1px 0px rgba(0,0,0,0.2);
 }
 
 .window-content {

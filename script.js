@@ -215,8 +215,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     <span class="window-title">${content.title}</span>
                 </div>
                 <div class="window-controls">
-                    <button class="window-btn minimize-btn" title="Minimize">_</button>
-                    <button class="window-btn close-btn" title="Close">×</button>
+                    <button class="window-btn minimize-btn" title="Minimize"></button>
+                    <button class="window-btn close-btn" title="Close"></button>
                 </div>
             </div>
             <div class="window-content">
