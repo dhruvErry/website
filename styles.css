@@ -5,8 +5,9 @@
 }
 
 body {
-    font-family: Tahoma, sans-serif;
-    font-size: 11px;
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.5px;
     overflow: hidden;
     height: 100vh;
     background: url('https://images2.alphacoders.com/941/thumb-1920-941898.jpg') center center/cover no-repeat;
@@ -55,7 +56,7 @@ body {
 
 .desktop-icon span {
     color: white;
-    font-size: 11px;
+    font-size: 12px;
     text-align: center;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
     line-height: 1.2;
@@ -74,7 +75,7 @@ body {
     border-radius: 8px 8px 0 0;
     box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.3) inset;
     z-index: 100;
-    font-family: Tahoma, sans-serif;
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
     transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
     transform-origin: center center;
 }
@@ -173,9 +174,9 @@ body {
 .window-title {
     color: white;
     font-weight: bold;
-    font-size: 11px;
+    font-size: 12px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-    font-family: Tahoma, sans-serif;
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
 }
 
 .window-controls {
@@ -188,8 +189,8 @@ body {
     height: 21px;
     border: 1px solid #ece9d8;
     background: linear-gradient(to bottom, #ffffff 0%, #f5f5f5 50%, #e8e8e8 51%, #d6d6d6 100%);
-    font-family: 'MS Sans Serif', Tahoma, sans-serif;
-    font-size: 9px;
+    font-family: "Trebuchet MS", 'MS Sans Serif', Tahoma, sans-serif;
+    font-size: 10px;
     font-weight: bold;
     cursor: pointer;
     display: flex;
@@ -316,18 +317,18 @@ body {
 .window-content h2 {
     color: #003c74;
     margin-bottom: 20px;
-    font-size: 18px;
+    font-size: 20px;
     border-bottom: 2px solid #316ac5;
     padding-bottom: 8px;
-    font-family: Tahoma, sans-serif;
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
 }
 
 .window-content .content {
     color: #000;
     line-height: 1.6;
-    font-size: 12px;
-    font-family: Tahoma, sans-serif;
+    font-size: 13px;
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
 }
 
 .window-content .content p {
@@ -353,8 +354,8 @@ body {
     border: 1px solid #999;
     border-radius: 3px;
     padding: 6px 20px;
-    font-family: Tahoma, sans-serif;
-    font-size: 11px;
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-size: 12px;
     font-weight: normal;
     color: #000;
     cursor: pointer;
@@ -381,8 +382,13 @@ body {
     left: 0;
     width: 100%;
     height: 30px;
-    background: linear-gradient(to bottom, #245edb 0%, #1941a5 3%, #1941a5 97%, #245edb 100%);
-    border-top: 1px solid #316ac5;
+    background: linear-gradient(to bottom, 
+        #5c99ec 0px, /* Lightest highlight line at the very top */
+        #4380db 1px, /* Slightly darker transition */
+        #245edb 2px, /* Main lighter blue start */
+        #1c4fad 98%, /* Main darker blue end */
+        #3069c5 100%  /* Subtle lighter highlight at the very bottom */
+    );
     display: flex;
     align-items: center;
     z-index: 1000;
@@ -390,35 +396,36 @@ body {
 }
 
 .start-button {
-    height: 24px;
-    margin: 3px;
-    padding: 2px 8px 2px 4px;
-    background: linear-gradient(to bottom, #3db335 0%, #2d8f2a 50%, #2d8f2a 50%, #1e5f1c 100%);
-    border: 1px outset #3db335;
-    border-radius: 8px 8px 8px 0;
-    color: white;
-    font-weight: bold;
-    font-size: 11px;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    height: 28px; /* Slightly taller */
+    margin: 1px 2px 1px 0px; /* Adjusted for 30px taskbar, flush left (top right bottom left) */
+    padding: 0; /* No padding */
+    background: transparent; /* Transparent background */
+    border: none; /* No border */
+    border-radius: 0; /* No border-radius on the button itself */
     cursor: pointer;
     display: flex;
     align-items: center;
-    gap: 4px;
+    justify-content: center;
     flex-shrink: 0;
+    width: auto; /* Width determined by image content scaled to height */
 }
 
 .start-button:hover {
-    background: linear-gradient(to bottom, #4dc346 0%, #3da038 50%, #3da038 50%, #2a6b24 100%);
+    /* Optional: if image has no hover state, could add a subtle overlay or brightness filter here */
+    /* background: rgba(255,255,255,0.1); Example subtle hover */
 }
 
 .start-button:active {
-    border: 1px inset #3db335;
+    /* Optional: if image has no active state, could add a subtle inset or brightness filter */
+    /* transform: scale(0.98); Example subtle active state */
 }
 
 .start-logo {
-    width: 20px;
-    height: 20px;
-    filter: invert(1);
+    display: block; 
+    height: 100%; /* Fill the button's 26px height */
+    width: auto;  /* Maintain aspect ratio */
+    object-fit: contain; /* Ensures entire image fits and scales correctly */
+    /* max-width: none; This is not strictly needed if width is auto and height is 100% */
 }
 
 .taskbar-programs {
@@ -434,8 +441,8 @@ body {
     height: 22px;
     margin: 4px 8px 4px 4px;
     padding: 0 8px;
-    background: #1941a5;
-    border: 1px inset #245edb;
+    background: #1c4fad; /* Match bottom of taskbar gradient before inset border */
+    border: 1px inset #3069c5; /* Inset border using a color from taskbar gradient */
     display: flex;
     align-items: center;
     flex-shrink: 0;
@@ -443,7 +450,7 @@ body {
 
 .clock {
     color: white;
-    font-size: 11px;
+    font-size: 12px;
     font-weight: normal;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
 }
@@ -552,11 +559,200 @@ body {
 
 .taskbar-item-text {
     margin-left: 5px;
-    font-size: 11px;
-    font-family: Tahoma, sans-serif; /* Ensure consistent font */
+    font-size: 12px;
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
     /* text-shadow: 1px 1px 1px rgba(0,0,0,0.4); Removed from here, added to .taskbar-item */
 }
 
 .taskbar-item.active .taskbar-item-text {
     /* color: #fff; Ensure text is white if not already */
+}
+
+/* Add Start Menu styles here */
+.start-menu {
+    /* display: none; Ensure this is NOT active */
+    position: fixed;
+    bottom: 30px; /* Height of the taskbar */
+    left: 0;
+    width: 400px; /* Approximate width, adjust as needed */
+    background: #FFFFFF; /* Fallback, but columns will override */
+    border: 1px solid #00519E;
+    border-top-right-radius: 6px;
+    box-shadow: 3px -3px 8px rgba(0,0,0,0.3);
+    z-index: 2000; /* Above other windows */
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-size: 12px;
+    color: #000000;
+
+    opacity: 0;
+    transform: translateY(20px); /* Slightly less travel */
+    visibility: hidden;
+    transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out, visibility 0s linear 0.25s;
+    pointer-events: none; 
+}
+
+.start-menu-open {
+    /* display: block; Ensure this is NOT active */
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+    transition-delay: 0s; /* Ensures visibility transition applies immediately if specified above */
+    /* Or more explicitly for clarity if preferred for all properties on open: */
+    /* transition: opacity 0.25s ease-in-out, transform 0.25s ease-in-out, visibility 0s linear 0s; */
+    pointer-events: auto; 
+}
+
+.start-menu-header {
+    background: linear-gradient(to bottom, #0856A8 0%, #0078D7 10%, #0080EB 90%, #0856A8 100%);
+    padding: 6px 10px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #00519E;
+    border-top-right-radius: 5px; /* Match outer radius */
+}
+
+.start-menu-user-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 4px;
+    border: 1px solid #FFFFFF;
+    margin-right: 10px;
+    background-color: #D0E4F8; /* Placeholder background for icon */
+}
+
+.start-menu-user-name {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+.start-menu-content {
+    display: flex;
+    height: 450px; /* Adjust as needed, or make it dynamic */
+}
+
+.start-menu-left-column {
+    width: 55%;
+    background-color: #D0E4F8; /* Light blue for left column */
+    padding: 5px 0;
+    border-right: 1px solid #7F9DB9;
+    overflow-y: auto; /* In case of too many items */
+    display: flex;
+    flex-direction: column;
+}
+
+.start-menu-right-column {
+    width: 45%;
+    background: linear-gradient(to right, #5B93D2 0%, #3E7AC0 30%, #2F67AC 100%); /* XP blue gradient */
+    padding: 5px 0;
+    overflow-y: auto; /* In case of too many items */
+}
+
+.start-menu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex-grow: 1;
+}
+
+.start-menu li {
+    padding: 5px 10px 5px 12px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    color: #000000; /* Default text color for left column */
+}
+
+.start-menu-right-column li {
+    color: #FFFFFF; /* Text color for right column */
+}
+
+.start-menu li:hover {
+    background-color: #316AC5; /* XP selection blue */
+    color: white;
+}
+
+.start-menu li.pinned:hover {
+    background-color: #A0D0F7; /* Lighter selection for pinned items area */
+    color: #000;
+}
+
+.start-menu li img {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+    object-fit: contain;
+}
+
+.start-menu-left-column li.pinned img {
+    width: 24px; /* Slightly larger icons for pinned items */
+    height: 24px;
+}
+
+.start-menu li.separator {
+    height: 1px;
+    background-color: #7F9DB9;
+    margin: 5px 0;
+    padding: 0;
+}
+
+.start-menu-right-column li.separator {
+    background-color: #79B9F3; /* Lighter separator for blue background */
+}
+
+.all-programs-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 10px;
+    margin: 5px 8px 8px 8px;
+    background: linear-gradient(to bottom, #F2F2F2 0%, #E0E0E0 100%);
+    border: 1px solid #707070;
+    border-radius: 3px;
+    font-weight: normal;
+    cursor: pointer;
+    text-align: center;
+}
+.all-programs-btn:hover {
+    background: linear-gradient(to bottom, #FFFFFF 0%, #EFEFEF 100%);
+    border-color: #316AC5;
+}
+.all-programs-btn .arrow {
+    margin-left: auto;
+    font-size: 11px;
+    transform: scaleY(1.3) scaleX(0.8);
+}
+
+.start-menu-footer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px 10px;
+    background-color: #ECE9D8; /* Light gray, similar to taskbar elements */
+    border-top: 1px solid #C0C0C0;
+}
+
+.start-menu-footer button {
+    background: none;
+    border: none;
+    color: #000000;
+    padding: 3px 8px;
+    margin-left: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+}
+
+.start-menu-footer button img {
+    width: 16px;
+    height: 16px;
+    margin-right: 5px;
+    filter: invert(30%) sepia(0%) saturate(0%) hue-rotate(0deg) brightness(0%) contrast(100%); /* Make icons dark gray/black */
+}
+
+.start-menu-footer button:hover {
+    background-color: #C0D5EF;
+    border: 1px dashed #7F9DB9; /* XP style subtle hover */
+    padding: 2px 7px;
 } 

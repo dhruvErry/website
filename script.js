@@ -144,6 +144,8 @@ window.minimizeWindow = function(section) {
 document.addEventListener('DOMContentLoaded', function() {
     const desktopIcons = document.querySelectorAll('.desktop-icon');
     const taskbarPrograms = document.querySelector('.taskbar .taskbar-programs');
+    const startButton = document.querySelector('.start-button'); // Get Start button
+    const startMenu = document.getElementById('start-menu'); // Get Start menu
 
     desktopIcons.forEach(icon => {
         icon.addEventListener('dblclick', function() {
@@ -592,6 +594,45 @@ document.addEventListener('DOMContentLoaded', function() {
     }
     updateClock();
     setInterval(updateClock, 1000);
+
+    // Start Menu Toggle Logic
+    if (startButton && startMenu) {
+        startButton.addEventListener('click', (event) => {
+            event.stopPropagation(); // Prevent click from closing menu immediately
+            startMenu.classList.toggle('start-menu-open');
+            // Optional: change start button appearance when menu is open
+            if (startMenu.classList.contains('start-menu-open')) {
+                startButton.classList.add('active');
+            } else {
+                startButton.classList.remove('active');
+            }
+        });
+
+        // Close Start Menu if clicking outside
+        document.addEventListener('click', (event) => {
+            if (startMenu.classList.contains('start-menu-open') && !startMenu.contains(event.target) && event.target !== startButton && !startButton.contains(event.target)) {
+                startMenu.classList.remove('start-menu-open');
+                startButton.classList.remove('active');
+            }
+        });
+
+        // Close Start Menu with Escape key
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && startMenu.classList.contains('start-menu-open')) {
+                startMenu.classList.remove('start-menu-open');
+                startButton.classList.remove('active');
+            }
+        });
+
+        // Prevent clicks inside the start menu from closing it via the document listener
+        startMenu.addEventListener('click', (event) => {
+            event.stopPropagation();
+            // Add logic here if you want menu items to do something and then close the menu
+            // For example, if an item is clicked: 
+            // startMenu.classList.remove('start-menu-open');
+            // startButton.classList.remove('active');
+        });
+    }
 
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape') {
