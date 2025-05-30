@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-family: 'Rubik', sans-serif;
     font-size: 12px;
     letter-spacing: 0.5px;
     overflow: hidden;
@@ -68,14 +68,14 @@ body {
     position: absolute;
     top: 80px;
     left: 150px;
-    width: 700px;
+    width: 780px;
     height: 500px;
     background: #ece9d8;
     border: 3px solid #0054e3;
     border-radius: 8px 8px 0 0;
     box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.3) inset;
     z-index: 100;
-    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-family: 'Rubik', sans-serif;
     transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
     transform-origin: center center;
 }
@@ -299,36 +299,51 @@ body {
 }
 
 .window-content {
-    padding: 25px 30px 20px 30px;
+    /* padding: 25px 30px 20px 30px; // Moved to .view-container */
     height: calc(100% - 30px);
-    overflow-y: auto;
+    /* overflow-y: auto; // Moved to .view-container */
     background: linear-gradient(to bottom, #f8f8f8 0%, #ece9d8 100%);
     border-radius: 0 0 5px 5px;
+    /* display: flex; // Moved to .view-container */
+    /* flex-direction: column; // Moved to .view-container */
+    position: relative; /* For positioning context if ever needed, was already here */
+}
+
+.view-container {
+    width: 100%;
+    height: 100%;
+    padding: 25px 30px 20px 30px; /* Original padding from .window-content */
+    overflow-y: auto; /* Original overflow from .window-content */
     display: flex;
     flex-direction: column;
-    position: relative;
+    transition: opacity 0.25s ease-in-out;
+}
+
+.content-fading {
+    opacity: 0;
 }
 
 .window-content-main {
     flex: 1;
     overflow-y: auto;
+    padding-right: 30px; /* Further increased padding */
 }
 
 .window-content h2 {
     color: #003c74;
     margin-bottom: 20px;
-    font-size: 20px;
+    font-size: 22px;
     border-bottom: 2px solid #316ac5;
     padding-bottom: 8px;
-    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-family: 'Rubik', sans-serif;
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
 }
 
 .window-content .content {
     color: #000;
-    line-height: 1.6;
-    font-size: 13px;
-    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    line-height: 1.75;
+    font-size: 15px;
+    font-family: 'Rubik', sans-serif;
 }
 
 .window-content .content p {
@@ -375,24 +390,121 @@ body {
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2) inset;
 }
 
+/* Styles for Folder Window Content */
+.folder-content-main {
+    height: 100%; 
+    display: flex; /* Use flex to center its child (the ul) */
+    flex-direction: column; /* Although only one child, for consistency */
+    justify-content: center; /* Vertical centering of the ul */
+    align-items: center; /* Horizontal centering of the ul */
+}
+
+.folder-items-list {
+    list-style: none;
+    padding: 10px; /* Add some padding around the list if needed */
+    margin: 0;
+    /* flex-grow: 1; Removed */
+    /* overflow-y: auto; Should be on folder-content-main if list exceeds window */
+    /* display: flex; Removed */
+    /* flex-direction: column; Removed */
+    /* align-items: center; Removed */
+    /* justify-content: center; Removed */
+    width: fit-content; /* Make the UL itself only as wide as its content */
+}
+
+.folder-item {
+    display: flex;
+    align-items: center; 
+    padding: 8px 10px;
+    cursor: pointer;
+    border-radius: 3px;
+    margin-bottom: 4px; 
+    transition: background-color 0.2s ease;
+    /* width: fit-content; Kept from previous, li should be as wide as icon + text */
+}
+
+.folder-item:hover {
+    background-color: #cce0f5; /* Light blue hover, similar to XP selection */
+}
+
+.folder-item-icon {
+    width: 24px; /* Adjust size as needed */
+    height: 24px;
+    margin-right: 10px;
+    object-fit: contain;
+}
+
+.folder-item-text-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.folder-item-title {
+    font-size: 15px;
+    color: #000;
+    font-family: 'Rubik', sans-serif;
+    margin-bottom: 2px;
+}
+
+.folder-item-date {
+    font-size: 12px; /* Slightly smaller */
+    color: #555; /* Muted color */
+    margin-top: 2px;
+    font-family: 'Rubik', sans-serif; /* Ensure Rubik font is applied */
+}
+
+/* Back button (image) for folder navigation */
+.folder-back-button {
+    width: 28px; /* Adjust as needed for the image's appearance */
+    height: 28px; /* Adjust as needed */
+    cursor: pointer;
+    /* margin-bottom: 10px; Removed as it's now inline with close button */
+    display: inline-block; /* To sit on the same line as the close button */
+    vertical-align: middle; /* Align with the middle of the close button */
+    margin-right: 15px; /* Increased space between back button and close button */
+    border: 1px solid transparent; /* Optional: for a slight button feel */
+    padding: 2px; /* Optional: for a slight button feel */
+    border-radius: 3px; /* Optional: for a slight button feel */
+}
+
+.folder-back-button:hover {
+    border-color: #999; /* Optional: highlight on hover */
+    background-color: rgba(204, 224, 245, 0.5); /* Optional: slight hover background */
+}
+
+.folder-back-button:active {
+    border-color: #666;
+    background-color: rgba(173, 216, 230, 0.7); /* Optional: slight active background (light blue) */
+    transform: scale(0.98); /* Slight press effect */
+}
+
 /* Taskbar */
 .taskbar {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 30px;
-    background: linear-gradient(to bottom, 
-        #5c99ec 0px, /* Lightest highlight line at the very top */
-        #4380db 1px, /* Slightly darker transition */
-        #245edb 2px, /* Main lighter blue start */
-        #1c4fad 98%, /* Main darker blue end */
-        #3069c5 100%  /* Subtle lighter highlight at the very bottom */
-    );
-    display: flex;
-    align-items: center;
-    z-index: 1000;
+    height: 30px; /* XP taskbar height */
+    background: #245ddb; /* XP blue color */
+    display: flex; /* Changed from grid to flex */
+    align-items: center; /* Align items vertically */
+    padding: 0; /* Remove padding if any */
+    border-top: 1px solid #3c72ff; /* Lighter top border */
+    z-index: 10000; /* Ensure it's on top */
     box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.taskbar-middle-section {
+    flex-grow: 1; /* Allows this section to take up remaining space */
+    height: 100%;
+    background: #245ddb; /* XP blue */
+    display: flex;
+    justify-content: space-between; /* Pushes programs to left, tray to right */
+    align-items: center;
+    padding: 0 6px; /* Padding for items inside */
+    border-left: 1px solid #1c4cb0; /* Separator from start button (optional) */
+    border-right: 1px solid #1c4cb0; /* Separator from end of bar (optional) */
 }
 
 .start-button {
@@ -429,23 +541,19 @@ body {
 }
 
 .taskbar-programs {
-    flex: 1;
-    height: 100%;
-    margin: 0 5px;
     display: flex;
     align-items: center;
-    gap: 2px;
+    height: 100%;
+    /* Removed flex-grow: 1 as it's now handled by taskbar-middle-section */
+    /* background-color: transparent; Remove if it was set */
 }
 
 .system-tray {
-    height: 22px;
-    margin: 4px 8px 4px 4px;
-    padding: 0 8px;
-    background: #1c4fad; /* Match bottom of taskbar gradient before inset border */
-    border: 1px inset #3069c5; /* Inset border using a color from taskbar gradient */
     display: flex;
     align-items: center;
-    flex-shrink: 0;
+    height: 100%;
+    padding: 0 6px;
+    /* background-color: transparent; Remove if it was set */
 }
 
 .clock {
@@ -457,27 +565,29 @@ body {
 
 /* Scrollbar styling for authentic XP look */
 ::-webkit-scrollbar {
-    width: 16px;
+    width: 8px; /* Made even thinner */
 }
 
 ::-webkit-scrollbar-track {
-    background: #ece9d8;
-    border: 1px inset #ece9d8;
+    background: #f5f5f5; /* Lighter track color */
+    border: none; /* Removed border */
 }
 
 ::-webkit-scrollbar-thumb {
-    background: #ddd;
-    border: 1px outset #ddd;
+    background: #c0c0c0; /* Lighter grey thumb color */
+    border: none; /* Removed border */
+    border-radius: 6px; /* Added border-radius for rounded ends */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: #ccc;
+    background: #a8a8a8; /* Lighter grey thumb on hover */
 }
 
 ::-webkit-scrollbar-button {
     height: 16px;
     background: #ece9d8;
     border: 1px outset #ece9d8;
+    display: none; /* Removed scrollbar buttons */
 }
 
 /* Fixed taskbar slots to maintain positions */
@@ -625,6 +735,7 @@ body {
     font-size: 18px;
     font-weight: bold;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
 }
 
 .start-menu-content {
@@ -713,6 +824,7 @@ body {
     font-weight: normal;
     cursor: pointer;
     text-align: center;
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
 }
 .all-programs-btn:hover {
     background: linear-gradient(to bottom, #FFFFFF 0%, #EFEFEF 100%);
@@ -742,6 +854,7 @@ body {
     display: flex;
     align-items: center;
     font-size: 12px;
+    font-family: "Trebuchet MS", Tahoma, sans-serif;
 }
 
 .start-menu-footer button img {
@@ -755,4 +868,35 @@ body {
     background-color: #C0D5EF;
     border: 1px dashed #7F9DB9; /* XP style subtle hover */
     padding: 2px 7px;
+}
+
+/* Styles for Tech Tags in Project/Experience Detail View */
+.tech-stack-container {
+    display: flex;
+    justify-content: space-between; /* Pushes tags left, date right */
+    align-items: flex-start; /* Aligns items at the top of the line */
+    margin-bottom: 10px; /* Space before the main description */
+}
+
+.tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px; /* Space between tags */
+    margin-bottom: 5px; /* Space between tags and date */
+}
+
+.tech-tag {
+    background-color: #e0e0e0; /* Light grey background */
+    color: #333; /* Darker text for contrast */
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px; /* Smaller font for tags */
+    white-space: nowrap; /* Prevent tags from breaking mid-word */
+}
+
+.tech-date-range {
+    font-size: 12px;
+    color: #555;
+    margin-top: 0; /* Reset margin if any from default p */
+    margin-bottom: 0; /* Reset margin if any from default p */
 } 

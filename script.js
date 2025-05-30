@@ -2,45 +2,124 @@
 const portfolioContent = {
     projects: {
         title: "Projects",
-        content: `
-            <div class="window-content-main">
-                <h2>My Projects</h2>
-                <div class="content">
-                    <p><strong>BOGO Bite App</strong> | Django·Python·React Native·JavaScript·MySQL (Jan 2024 — May 2024)</p>
-                    <p>Developed full-stack mobile application for restaurants to offer and manage coupons. Engineered robust Django backend serving RESTful APIs for seamless communication with React Native frontend. Built endpoints for account authorization, password validation, and data storage/retrieval from MySQL database.</p>
-                    <br>
-                    <p><strong>Mastermind Online Game</strong> | Node.js·Express·socket.io·JavaScript·HTML·CSS (Aug 2020 — Dec 2020)</p>
-                    <p>Adapted the popular board game Mastermind into a two-player full-stack application hosted online. It is the only multiplayer version of this game on the internet. Engineered backend using Express and frontend with HTML, CSS, and JavaScript, providing a graphical user interface inspired by the board game. Facilitated real-time communication between clients and server via sockets using socket.io, enabling two-player gameplay.</p>
-                    <p><a href="https://mastermind-e730.onrender.com/" target="_blank">Play it here: https://mastermind-e730.onrender.com/</a></p>
-                    <br>
-                    <p><em>Source code of both projects can be viewed on GitHub.</em></p>
-                </div>
-            </div>
-            <div class="window-bottom-controls">
-                <button class="window-close-bottom js-window-close-bottom" data-section-to-close="projects">Close</button>
-            </div>
-        `
+        type: "folder",
+        items: [
+            {
+                id: "proj-bogo-bite",
+                title: "BOGO Bite App",
+                dateRange: "Jan 2024 — May 2024",
+                content: `
+                    <div class="window-content-main">
+                        <h2>BOGO Bite App</h2>
+                        <div class="content">
+                            <div class="tech-stack-container">
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Django</span>
+                                    <span class="tech-tag">Python</span>
+                                    <span class="tech-tag">React Native</span>
+                                    <span class="tech-tag">JavaScript</span>
+                                    <span class="tech-tag">MySQL</span>
+                                </div>
+                                <p class="tech-date-range">(Jan 2024 — May 2024)</p>
+                            </div>
+                            <p>Developed full-stack mobile application for restaurants to offer and manage coupons. Engineered robust Django backend serving RESTful APIs for seamless communication with React Native frontend. Built endpoints for account authorization, password validation, and data storage/retrieval from MySQL database.</p>
+                            <br>
+                            <p><em>Source code can be viewed on GitHub.</em></p>
+                        </div>
+                    </div>
+                    <div class="window-bottom-controls">
+                        <button class="window-close-bottom js-window-close-bottom" data-section-to-close="projects-proj-bogo-bite">Close</button>
+                    </div>
+                `
+            },
+            {
+                id: "proj-mastermind",
+                title: "Mastermind Online Game",
+                dateRange: "Aug 2020 — Dec 2020",
+                content: `
+                    <div class="window-content-main">
+                        <h2>Mastermind Online Game</h2>
+                        <div class="content">
+                            <div class="tech-stack-container">
+                                <div class="tech-tags">
+                                    <span class="tech-tag">Node.js</span>
+                                    <span class="tech-tag">Express</span>
+                                    <span class="tech-tag">socket.io</span>
+                                    <span class="tech-tag">JavaScript</span>
+                                    <span class="tech-tag">HTML</span>
+                                    <span class="tech-tag">CSS</span>
+                                </div>
+                                <p class="tech-date-range">(Aug 2020 — Dec 2020)</p>
+                            </div>
+                            <p>Adapted the popular board game Mastermind into a two-player full-stack application hosted online. It is the only multiplayer version of this game on the internet. Engineered backend using Express and frontend with HTML, CSS, and JavaScript, providing a graphical user interface inspired by the board game. Facilitated real-time communication between clients and server via sockets using socket.io, enabling two-player gameplay.</p>
+                            <p><a href="https://mastermind-e730.onrender.com/" target="_blank">Play it here: https://mastermind-e730.onrender.com/</a></p>
+                            <br>
+                            <p><em>Source code can be viewed on GitHub.</em></p>
+                        </div>
+                    </div>
+                    <div class="window-bottom-controls">
+                        <button class="window-close-bottom js-window-close-bottom" data-section-to-close="projects-proj-mastermind">Close</button>
+                    </div>
+                `
+            }
+        ]
     },
     experience: {
         title: "Experience",
-        content: `
-            <div class="window-content-main">
-                <h2>Work Experience</h2>
-                <div class="content">
-                    <p><strong>DSSI Researcher (Drew University Summer Science Institute)</strong> | Drew University | Client: Pure Green Cement (May 2024 — Jul 2024)</p>
-                    <p>Developed Python script utilizing LLMs and CrewAI agents for large-scale name matching tasks across OpenAlex and Google Scholar databases, enabling seamless consolidation of millions of academic records. Improved script performance by 60% through optimized code logic and efficient algorithm design. Created and maintained custom PostgreSQL database for matched names from millions of rows of data.</p>
-                    <br>
-                    <p><strong>Software Engineering Intern</strong> | ConnectWise (American software company offering IT solutions) (Jun 2023 — Aug 2023)</p>
-                    <p>Built a Dockerized full-stack web application using Django, Python, and HTML/CSS, hosted on Render, to automate the creation of offer letters for prospective candidates - resulting in a 40% reduction in letter generation time. Integrated Python libraries including openpyxl and pandas to extract candidate information from Excel files, calculate salary structures, and generate personalized Excel files containing offer letters. Streamlined HR operations by independently developing app for offer letter generation, now actively used for recruitment.</p>
-                    <br>
-                    <p><strong>Software Engineering Intern</strong> | Nykaa (Leading e-commerce platform for fashion and beauty) (Jun 2022 — Aug 2022)</p>
-                    <p>Developed a machine learning program using Python's scikit-learn library to analyze product inventory in MySQL database, identifying over 1000 erroneous discount values. Created a program to generate suitable discount ranges for 1 million products, streamlining pricing strategies. Enhanced inventory management using data-driven solutions, improving accuracy and efficiency in product discounting.</p>
-                </div>
-            </div>
-            <div class="window-bottom-controls">
-                <button class="window-close-bottom js-window-close-bottom" data-section-to-close="experience">Close</button>
-            </div>
-        `
+        type: "folder",
+        items: [
+            {
+                id: "exp-dssi",
+                title: "DSSI Researcher (Pure Green Cement)",
+                dateRange: "May 2024 — Jul 2024",
+                content: `
+                    <div class="window-content-main">
+                        <h2>DSSI Researcher (Drew University Summer Science Institute)</h2>
+                        <div class="content">
+                            <p><strong>Client: Pure Green Cement</strong> | Drew University (May 2024 — Jul 2024)</p>
+                            <p>Developed Python script utilizing LLMs and CrewAI agents for large-scale name matching tasks across OpenAlex and Google Scholar databases, enabling seamless consolidation of millions of academic records. Improved script performance by 60% through optimized code logic and efficient algorithm design. Created and maintained custom PostgreSQL database for matched names from millions of rows of data.</p>
+                        </div>
+                    </div>
+                    <div class="window-bottom-controls">
+                        <button class="window-close-bottom js-window-close-bottom" data-section-to-close="experience-exp-dssi">Close</button>
+                    </div>
+                `
+            },
+            {
+                id: "exp-connectwise",
+                title: "Software Engineering Intern (ConnectWise)",
+                dateRange: "Jun 2023 — Aug 2023",
+                content: `
+                    <div class="window-content-main">
+                        <h2>Software Engineering Intern</h2>
+                        <div class="content">
+                            <p><strong>ConnectWise (American software company offering IT solutions)</strong> (Jun 2023 — Aug 2023)</p>
+                            <p>Built a Dockerized full-stack web application using Django, Python, and HTML/CSS, hosted on Render, to automate the creation of offer letters for prospective candidates - resulting in a 40% reduction in letter generation time. Integrated Python libraries including openpyxl and pandas to extract candidate information from Excel files, calculate salary structures, and generate personalized Excel files containing offer letters. Streamlined HR operations by independently developing app for offer letter generation, now actively used for recruitment.</p>
+                        </div>
+                    </div>
+                    <div class="window-bottom-controls">
+                        <button class="window-close-bottom js-window-close-bottom" data-section-to-close="experience-exp-connectwise">Close</button>
+                    </div>
+                `
+            },
+            {
+                id: "exp-nykaa",
+                title: "Software Engineering Intern (Nykaa)",
+                dateRange: "Jun 2022 — Aug 2022",
+                content: `
+                    <div class="window-content-main">
+                        <h2>Software Engineering Intern</h2>
+                        <div class="content">
+                            <p><strong>Nykaa (Leading e-commerce platform for fashion and beauty)</strong> (Jun 2022 — Aug 2022)</p>
+                            <p>Developed a machine learning program using Python's scikit-learn library to analyze product inventory in MySQL database, identifying over 1000 erroneous discount values. Created a program to generate suitable discount ranges for 1 million products, streamlining pricing strategies. Enhanced inventory management using data-driven solutions, improving accuracy and efficiency in product discounting.</p>
+                        </div>
+                    </div>
+                    <div class="window-bottom-controls">
+                        <button class="window-close-bottom js-window-close-bottom" data-section-to-close="experience-exp-nykaa">Close</button>
+                    </div>
+                `
+            }
+        ]
     },
     skills: {
         title: "Skills",
@@ -83,7 +162,7 @@ const portfolioContent = {
         `
     },
     contact: {
-        title: "Contact Me",
+        title: "Contact",
         content: `
             <div class="window-content-main">
                 <h2>Get In Touch</h2>
@@ -111,7 +190,8 @@ const sectionIcons = {
     experience: "https://files.softicons.com/download/web-icons/webtoys-icons-by-artdesigner.lv/png/64x64/Case.png",
     skills: "https://files.softicons.com/download/toolbar-icons/ravenna-3d-icons-by-double-j-design/png/256x256/Tools.png",
     education: "https://files.softicons.com/download/toolbar-icons/desktop-education-icons-by-aha-soft/png/96x96/education.png",
-    contact: "https://files.softicons.com/download/application-icons/48x48-free-object-icons-by-aha-soft/png/48/Phone.png"
+    contact: "https://files.softicons.com/download/application-icons/48x48-free-object-icons-by-aha-soft/png/48/Phone.png",
+    defaultFile: "https://icons.iconarchive.com/icons/custom-icon-design/mono-general-2/256/document-icon.png" // Default icon for files within folders
 };
 
 // Global variables for window management
@@ -149,52 +229,46 @@ document.addEventListener('DOMContentLoaded', function() {
 
     desktopIcons.forEach(icon => {
         icon.addEventListener('dblclick', function() {
-            const section = this.getAttribute('data-section');
-            const content = portfolioContent[section];
-            if (content) {
-                openWindow(content, section);
+            const sectionKey = this.getAttribute('data-section'); // e.g., "projects"
+            const sectionData = portfolioContent[sectionKey];
+            if (sectionData) {
+                // For top-level sections, the sectionKey is the idToOpen
+                openWindow(sectionKey, sectionData.title, sectionData, sectionIcons[sectionKey]);
             }
         });
     });
 
-    function createWindow(content, section) {
+    function createWindow(sectionId, windowTitle, htmlContent, iconUrl) {
         const windowEl = document.createElement('div');
         windowEl.className = 'window';
-        windowEl.id = `window-${section}`;
-        windowEl.setAttribute('data-section', section);
-        
-        const fixedWindowWidth = 700; // Default window width
-        const fixedWindowHeight = 500; // Default window height
+        windowEl.id = `window-${sectionId}`;
+        windowEl.setAttribute('data-section', sectionId);
+        windowEl.setAttribute('data-current-view', 'list'); 
+        windowEl.setAttribute('data-base-folder-id', sectionId.split('-')[0]); 
+
+        let fixedWindowWidth = 780; /* New default width */
+        const fixedWindowHeight = 500; 
         let newLeft, newTop;
 
         if (openWindows.size === 0 || initialScreenCenterLeft === null) {
-            // This is the very first window OR a full reset scenario
-            initialScreenCenterLeft = (window.innerWidth / 2) - (fixedWindowWidth / 2);
+            initialScreenCenterLeft = (window.innerWidth / 2) - (fixedWindowWidth / 2) - 100; 
             initialScreenCenterTop = (window.innerHeight / 2) - (fixedWindowHeight / 2);
             
             currentCascadeLineBaseLeft = initialScreenCenterLeft;
             currentCascadeLineBaseTop = initialScreenCenterTop;
-            
             newLeft = currentCascadeLineBaseLeft;
             newTop = currentCascadeLineBaseTop;
             windowsInCurrentLineCount = 1;
         } else {
-            // Subsequent window
-            newTop = currentCascadeLineBaseTop; // Keep same vertical alignment for the line
+            newTop = currentCascadeLineBaseTop; 
             newLeft = lastPlacedLeftInCurrentLine + TITLE_AREA_WIDTH;
             windowsInCurrentLineCount++;
-
-            // Check if this new window would go off-screen OR if we've hit max per line
             if ((newLeft + fixedWindowWidth > window.innerWidth - 20) || (windowsInCurrentLineCount > MAX_WINDOWS_PER_LINE)) {
-                // Start a new "row" of cascade
                 currentCascadeLineBaseTop += LINE_ADVANCE_Y_OFFSET;
-                currentCascadeLineBaseLeft = initialScreenCenterLeft + LINE_ADVANCE_X_OFFSET;
-
-                // Boundary check for the new line's top position
+                currentCascadeLineBaseLeft = initialScreenCenterLeft + LINE_ADVANCE_X_OFFSET; 
                 if (currentCascadeLineBaseTop + fixedWindowHeight > window.innerHeight - 20) {
-                    // If new line also goes too far down, reset to near initial screen center but further offset
-                    initialScreenCenterTop += LINE_ADVANCE_Y_OFFSET / 2; // Nudge initial reference down slightly
-                    initialScreenCenterLeft += LINE_ADVANCE_X_OFFSET; // Nudge initial reference right slightly
+                    initialScreenCenterTop += LINE_ADVANCE_Y_OFFSET / 2; 
+                    initialScreenCenterLeft += LINE_ADVANCE_X_OFFSET; 
                     currentCascadeLineBaseTop = initialScreenCenterTop;
                     currentCascadeLineBaseLeft = initialScreenCenterLeft;
                 }
@@ -203,9 +277,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 windowsInCurrentLineCount = 1;
             }
         }
-        
-        lastPlacedLeftInCurrentLine = newLeft; // Update for the next window in this line
-
+        lastPlacedLeftInCurrentLine = newLeft;
+        windowEl.style.width = `${fixedWindowWidth}px`; 
         windowEl.style.left = `${Math.max(20, newLeft)}px`;
         windowEl.style.top = `${Math.max(20, newTop)}px`;
         windowEl.style.zIndex = ++currentZIndex;
@@ -213,8 +286,8 @@ document.addEventListener('DOMContentLoaded', function() {
         windowEl.innerHTML = `
             <div class="window-header">
                 <div class="window-title-area">
-                    <img src="${sectionIcons[section] || 'https://icons.iconarchive.com/icons/icojam/blue-bits/256/document-icon.png'}" alt="Icon" class="window-icon">
-                    <span class="window-title">${content.title}</span>
+                    <img src="${iconUrl || sectionIcons.defaultFile}" alt="Icon" class="window-icon">
+                    <span class="window-title">${windowTitle}</span>
                 </div>
                 <div class="window-controls">
                     <button class="window-btn minimize-btn" title="Minimize"></button>
@@ -222,25 +295,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 </div>
             </div>
             <div class="window-content">
-                ${content.content} 
-            </div>
-        `;
+                <div class="view-container"></div> <!-- Initial empty view container -->
+            </div>`;
         
         document.querySelector('.desktop').appendChild(windowEl);
         
+        // Populate initial content into the view-container
+        const viewContainer = windowEl.querySelector('.view-container');
+        viewContainer.innerHTML = htmlContent; // htmlContent is prepared by openWindow
+
+        // Add event listeners for header buttons
         const minimizeBtn = windowEl.querySelector('.minimize-btn');
         const closeBtn = windowEl.querySelector('.close-btn');
-        
-        minimizeBtn.addEventListener('click', () => minimizeWindowFunction(section));
-        closeBtn.addEventListener('click', () => closeWindowFunction(section));
+        minimizeBtn.addEventListener('click', () => minimizeWindowFunction(sectionId)); 
+        closeBtn.addEventListener('click', () => closeWindowFunction(sectionId)); 
 
-        const bottomCloseBtn = windowEl.querySelector('.js-window-close-bottom');
+        // Event listener for bottom close button (if it exists in the initial htmlContent)
+        // This needs to be scoped to the viewContainer now
+        const bottomCloseBtn = viewContainer.querySelector('.js-window-close-bottom');
         if (bottomCloseBtn) {
             bottomCloseBtn.addEventListener('click', function() {
                 const sectionToClose = this.getAttribute('data-section-to-close');
-                if (sectionToClose) {
-                    closeWindowFunction(sectionToClose);
-                }
+                if (sectionToClose) closeWindowFunction(sectionToClose);
             });
         }
         
@@ -251,80 +327,203 @@ document.addEventListener('DOMContentLoaded', function() {
         return windowEl;
     }
 
-    function openWindow(content, section) {
-        if (openWindows.has(section)) {
-            const existingWindow = openWindows.get(section);
-            if (minimizedWindows.has(section)) {
-                restoreWindow(section);
+    function generateFolderListHTML(folderId, folderData) {
+        let itemsHtml = '<div class="folder-content-main"><ul class="folder-items-list">';
+        folderData.items.forEach(item => {
+            itemsHtml += `<li data-item-id="${item.id}" data-parent-folder-id="${folderId}" class="folder-item">
+                            <img src="${sectionIcons.defaultFile}" alt="File" class="folder-item-icon">
+                            <div class="folder-item-text-content">
+                                <span class="folder-item-title">${item.title}</span>
+                                ${item.dateRange ? `<span class="folder-item-date">${item.dateRange}</span>` : ''}
+                            </div>
+                         </li>`;
+        });
+        itemsHtml += '</ul></div>';
+        itemsHtml += `<div class="window-bottom-controls">
+                        <button class="window-close-bottom js-window-close-bottom" data-section-to-close="${folderId}">Close</button>
+                     </div>`;
+        return itemsHtml;
+    }
+
+    function showFolderList(windowEl, folderId) {
+        const folderData = portfolioContent[folderId];
+        if (!windowEl || !folderData || folderData.type !== 'folder') return;
+
+        const viewContainer = windowEl.querySelector('.view-container');
+        if (!viewContainer) return;
+
+        viewContainer.classList.add('content-fading');
+
+        setTimeout(() => {
+            viewContainer.innerHTML = generateFolderListHTML(folderId, folderData);
+            windowEl.setAttribute('data-current-view', 'list');
+
+            // Re-attach listeners for folder items
+            viewContainer.querySelectorAll('.folder-item').forEach(itemEl => {
+                itemEl.addEventListener('dblclick', function() {
+                    const pFolderId = this.getAttribute('data-parent-folder-id');
+                    const itemId = this.getAttribute('data-item-id');
+                    showItemInFolderWindow(windowEl, pFolderId, itemId);
+                });
+            });
+
+            // Add listener for the new bottom close button
+            const bottomCloseBtn = viewContainer.querySelector('.js-window-close-bottom');
+            if (bottomCloseBtn) {
+                bottomCloseBtn.addEventListener('click', function() {
+                    closeWindowFunction(this.getAttribute('data-section-to-close'));
+                });
+            }
+            viewContainer.classList.remove('content-fading');
+        }, 250); // Match CSS transition duration
+    }
+
+    function showItemInFolderWindow(windowEl, parentFolderId, itemId) {
+        const parentData = portfolioContent[parentFolderId];
+        const itemData = parentData ? parentData.items.find(i => i.id === itemId) : null;
+
+        if (!windowEl || !itemData) return;
+
+        const viewContainer = windowEl.querySelector('.view-container');
+        if (!viewContainer) return;
+
+        viewContainer.classList.add('content-fading');
+
+        setTimeout(() => {
+            viewContainer.innerHTML = itemData.content; // Item's HTML content
+            windowEl.setAttribute('data-current-view', 'item');
+            windowEl.setAttribute('data-current-item-id', itemId);
+
+            const itemBottomCloseBtn = viewContainer.querySelector('.js-window-close-bottom');
+            if (itemBottomCloseBtn) {
+                itemBottomCloseBtn.setAttribute('data-section-to-close', parentFolderId);
+                itemBottomCloseBtn.onclick = () => closeWindowFunction(parentFolderId); 
+            }
+
+            // Handle the back button placement
+            const bottomControlsArea = viewContainer.querySelector('.window-bottom-controls');
+            let backButtonImg = bottomControlsArea ? bottomControlsArea.querySelector('.folder-back-button') : null;
+
+            if (!backButtonImg && bottomControlsArea && itemBottomCloseBtn) { 
+                backButtonImg = document.createElement('img');
+                backButtonImg.className = 'folder-back-button';
+                backButtonImg.src = 'https://preview.redd.it/whistler-xp-icons-redesigned-see-captions-v0-0u05lpyyffnc1.png?width=640&crop=smart&auto=webp&s=7f2276b769212d4621dada49eb1932abfd60a940';
+                backButtonImg.alt = 'Back';
+                bottomControlsArea.insertBefore(backButtonImg, itemBottomCloseBtn);
+            }
+            
+            if (backButtonImg) {
+                backButtonImg.onclick = () => showFolderList(windowEl, parentFolderId);
+            }
+            
+            viewContainer.classList.remove('content-fading');
+        }, 250); // Match CSS transition duration
+    }
+
+    function openWindow(idToOpen, titleForWindow, data, iconForWindow) {
+        if (openWindows.has(idToOpen)) {
+            const existingWindow = openWindows.get(idToOpen);
+            if (minimizedWindows.has(idToOpen)) {
+                restoreWindow(idToOpen);
             } else {
                 bringToFront(existingWindow);
+                // If it's a folder window that was already open and showing an item, revert to list?
+                // Or just bring to front. For now, just bring to front.
             }
             return;
         }
+
+        let initialContentHtml;
+        if (data.type === 'folder') {
+            initialContentHtml = generateFolderListHTML(idToOpen, data);
+        } else {
+            // For non-folder types like Skills, Contact
+            initialContentHtml = data.content;
+        }
         
-        const windowEl = createWindow(content, section);
-        openWindows.set(section, windowEl);
-        updateTaskbar(section, false, true);
+        const windowEl = createWindow(idToOpen, titleForWindow, initialContentHtml, iconForWindow);
+        openWindows.set(idToOpen, windowEl);
+        // Taskbar only cares about the main idToOpen (folder ID or standalone section ID)
+        updateTaskbar(idToOpen, titleForWindow, iconForWindow, false, true);
         
+        // This needs to be scoped to the viewContainer now after windowEl is created and content is set
+        const viewContainer = windowEl.querySelector('.view-container');
+        if (viewContainer && data.type === 'folder') {
+            viewContainer.querySelectorAll('.folder-item').forEach(itemEl => {
+                itemEl.addEventListener('dblclick', function() {
+                    const parentFolderId = this.getAttribute('data-parent-folder-id');
+                    const itemId = this.getAttribute('data-item-id');
+                    // Get the window element for the parent folder
+                    const folderWindowElement = openWindows.get(parentFolderId);
+                    if (folderWindowElement) {
+                        showItemInFolderWindow(folderWindowElement, parentFolderId, itemId);
+                    }
+                });
+            });
+        }
+
         windowEl.classList.add('opening');
         setTimeout(() => windowEl.classList.remove('opening'), 400);
     }
 
     function bringToFront(windowEl) {
         windowEl.style.zIndex = ++currentZIndex;
-        const section = windowEl.getAttribute('data-section');
+        const sectionId = windowEl.getAttribute('data-section');
         
         document.querySelectorAll('.taskbar-item').forEach(item => {
-            item.classList.remove('active'); // Remove active from all first
+            item.classList.remove('active'); 
         });
         
-        // Then add active to the current one if it's not minimized
-        const taskbarItem = document.querySelector(`.taskbar-slot .taskbar-item[data-window="${section}"]`);
-        if (taskbarItem && !minimizedWindows.has(section)) {
+        const taskbarItem = document.querySelector(`.taskbar-slot .taskbar-item[data-window="${sectionId}"]`);
+        if (taskbarItem && !minimizedWindows.has(sectionId)) {
             taskbarItem.classList.add('active');
         }
     }
 
-    function updateTaskbar(section, isMinimized, isNewInstance = false) {
-        let taskbarSlot = document.querySelector(`.taskbar-slot[data-section-slot="${section}"]`);
+    // sectionId: The unique ID of the window (e.g., "projects" or "projects-proj-bogo-bite")
+    // title: The title for the taskbar item
+    // iconUrl: The icon URL for the taskbar item
+    function updateTaskbar(sectionId, title, iconUrl, isMinimized, isNewInstance = false) {
+        let taskbarSlot = document.querySelector(`.taskbar-slot[data-section-slot="${sectionId}"]`);
         let taskbarItem = taskbarSlot ? taskbarSlot.querySelector('.taskbar-item') : null;
 
+        const displayTitle = title || sectionId; // Fallback to sectionId if title is not available
+        const displayIcon = iconUrl || sectionIcons.defaultFile; // Fallback to defaultFile icon
+
         if (isNewInstance && !taskbarSlot) {
-            // Create a new slot and append it for new window instances
             taskbarSlot = document.createElement('div');
             taskbarSlot.className = 'taskbar-slot';
-            taskbarSlot.setAttribute('data-section-slot', section);
-            taskbarSlot.style.display = 'flex'; // Make visible
-            taskbarPrograms.appendChild(taskbarSlot); // This ensures order of opening
-            // taskbarItem will be null, so it gets created below
+            taskbarSlot.setAttribute('data-section-slot', sectionId);
+            taskbarSlot.style.display = 'flex';
+            taskbarPrograms.appendChild(taskbarSlot);
         } else if (taskbarSlot && taskbarSlot.style.display === 'none') {
-            // If slot exists but was hidden (e.g. window closed and reopened), make it visible
              taskbarSlot.style.display = 'flex';
         }
         
-        if (!taskbarItem && taskbarSlot) { // Create item if it doesn't exist in the slot
+        if (!taskbarItem && taskbarSlot) { 
             taskbarSlot.innerHTML = ''; 
             taskbarItem = document.createElement('div');
-            taskbarItem.className = 'taskbar-item'; // Base class
-            taskbarItem.setAttribute('data-window', section);
+            taskbarItem.className = 'taskbar-item';
+            taskbarItem.setAttribute('data-window', sectionId);
             taskbarItem.innerHTML = `
-                <img src="${sectionIcons[section] || 'https://icons.iconarchive.com/icons/fatcow/farm-fresh/16/application-blue-icon.png'}" alt="Icon" class="taskbar-item-icon">
-                <span class="taskbar-item-text">${portfolioContent[section].title}</span>
+                <img src="${displayIcon}" alt="Icon" class="taskbar-item-icon">
+                <span class="taskbar-item-text">${displayTitle}</span>
             `;
             
             taskbarItem.addEventListener('click', function() {
-                const currentClickedSection = this.getAttribute('data-window');
-                const windowEl = openWindows.get(currentClickedSection);
+                const currentClickedSectionId = this.getAttribute('data-window');
+                const windowToInteractWith = openWindows.get(currentClickedSectionId);
 
-                if (minimizedWindows.has(currentClickedSection)) {
-                    restoreWindow(currentClickedSection);
-                } else if (windowEl) {
-                    if (windowEl.style.zIndex == currentZIndex) { 
+                if (minimizedWindows.has(currentClickedSectionId)) {
+                    restoreWindow(currentClickedSectionId);
+                } else if (windowToInteractWith) {
+                    // If the window is already the top one and not minimized, then minimize it
+                    if (windowToInteractWith.style.zIndex == currentZIndex && !minimizedWindows.has(currentClickedSectionId)) { 
                         this.classList.add('active-and-clicked');
                         setTimeout(() => this.classList.remove('active-and-clicked'), 150);
-                        minimizeWindowFunction(currentClickedSection);
-                    } else { 
-                        bringToFront(windowEl);
+                        minimizeWindowFunction(currentClickedSectionId);
+                    } else { // Otherwise, bring it to front
+                        bringToFront(windowToInteractWith);
                     }
                 }
             });
@@ -333,52 +532,60 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Update style based on state for the specific item
         if (taskbarItem) {
-            taskbarItem.className = `taskbar-item ${isMinimized ? 'minimized' : (openWindows.get(section)?.style.zIndex == currentZIndex ? 'active' : '')}`;
+            const windowEl = openWindows.get(sectionId);
+            const isActive = windowEl && windowEl.style.zIndex == currentZIndex && !minimizedWindows.has(sectionId);
+            taskbarItem.className = `taskbar-item ${isMinimized ? 'minimized' : (isActive ? 'active' : '')}`;
             // Ensure other taskbar items are not marked active if this one is becoming active
-            if (taskbarItem.classList.contains('active')) {
-                document.querySelectorAll(`.taskbar-item.active:not([data-window="${section}"])`).forEach(otherItem => {
+            if (isActive) {
+                document.querySelectorAll(`.taskbar-item.active:not([data-window="${sectionId}"])`).forEach(otherItem => {
                     otherItem.classList.remove('active');
                 });
             }
         }
     }
 
-    function minimizeWindowFunction(section) {
-        const windowEl = openWindows.get(section);
-        if (!windowEl || minimizedWindows.has(section)) return;
+    function minimizeWindowFunction(sectionId) { 
+        const windowEl = openWindows.get(sectionId);
+        if (!windowEl || minimizedWindows.has(sectionId)) return;
         
-        const taskbarItem = document.querySelector(`.taskbar-slot[data-section-slot="${section}"] .taskbar-item`);
+        const taskbarItem = document.querySelector(`.taskbar-slot[data-section-slot="${sectionId}"] .taskbar-item`);
         if (taskbarItem) setMinimizePosition(windowEl, taskbarItem);
         
         windowEl.classList.add('minimizing');
-        minimizedWindows.add(section);
+        minimizedWindows.add(sectionId);
         
         setTimeout(() => {
             windowEl.style.display = 'none';
             windowEl.classList.remove('minimizing');
             windowEl.style.removeProperty('--minimize-x');
             windowEl.style.removeProperty('--minimize-y');
-            updateTaskbar(section, true);
+            
+            const title = windowEl.querySelector('.window-title').textContent;
+            const iconSrc = windowEl.querySelector('.window-icon').src;
+            updateTaskbar(sectionId, title, iconSrc, true);
         }, 400);
     }
 
-    function restoreWindow(section) {
-        const windowEl = openWindows.get(section);
-        if (!windowEl || !minimizedWindows.has(section)) return;
+    function restoreWindow(sectionId) { 
+        const windowEl = openWindows.get(sectionId);
+        if (!windowEl || !minimizedWindows.has(sectionId)) return;
         
-        const taskbarItem = document.querySelector(`.taskbar-slot[data-section-slot="${section}"] .taskbar-item`);
+        const taskbarItem = document.querySelector(`.taskbar-slot[data-section-slot="${sectionId}"] .taskbar-item`);
         if (taskbarItem) setRestorePosition(windowEl, taskbarItem);
         
         windowEl.style.display = 'block';
         windowEl.classList.add('restoring');
-        minimizedWindows.delete(section);
+        minimizedWindows.delete(sectionId);
         
         setTimeout(() => {
             windowEl.classList.remove('restoring');
             windowEl.style.removeProperty('--restore-x');
             windowEl.style.removeProperty('--restore-y');
             bringToFront(windowEl);
-            updateTaskbar(section, false);
+
+            const title = windowEl.querySelector('.window-title').textContent;
+            const iconSrc = windowEl.querySelector('.window-icon').src;
+            updateTaskbar(sectionId, title, iconSrc, false);
         }, 400);
     }
 
@@ -400,23 +607,23 @@ document.addEventListener('DOMContentLoaded', function() {
         windowEl.style.setProperty('--restore-y', `${deltaY}px`);
     }
 
-    function closeWindowFunction(section) {
-        const windowEl = openWindows.get(section);
+    function closeWindowFunction(sectionId) { 
+        const windowEl = openWindows.get(sectionId);
         if (!windowEl || windowEl.classList.contains('closing')) return;
         
         windowEl.classList.add('closing');
         
         setTimeout(() => {
             if (windowEl) windowEl.remove();
-            openWindows.delete(section);
-            minimizedWindows.delete(section);
+            openWindows.delete(sectionId);
+            minimizedWindows.delete(sectionId);
             
-            const taskbarSlot = document.querySelector(`.taskbar-slot[data-section-slot="${section}"]`);
+            const taskbarSlot = document.querySelector(`.taskbar-slot[data-section-slot="${sectionId}"]`);
             if (taskbarSlot) taskbarSlot.remove();
 
-            // If all windows are closed, reset cascading state for the next first window
+            // If all windows are closed, reset cascading state
             if (openWindows.size === 0) {
-                initialScreenCenterLeft = null; // Allows re-centering of the very next window
+                initialScreenCenterLeft = null; 
                 initialScreenCenterTop = null;
                 currentCascadeLineBaseLeft = null;
                 currentCascadeLineBaseTop = null;
@@ -636,10 +843,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
     document.addEventListener('keydown', e => {
         if (e.key === 'Escape') {
+            // Close the topmost active (non-minimized) window
             const topWindow = Array.from(openWindows.values())
-                .filter(w => !minimizedWindows.has(w.getAttribute('data-section')))
+                .filter(w => w.style.display !== 'none' && !minimizedWindows.has(w.getAttribute('data-section')))
                 .sort((a, b) => parseInt(b.style.zIndex) - parseInt(a.style.zIndex))[0];
-            if (topWindow) closeWindowFunction(topWindow.getAttribute('data-section'));
+            if (topWindow) {
+                closeWindowFunction(topWindow.getAttribute('data-section'));
+            }
         }
     });
 }); 
