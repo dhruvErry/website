@@ -325,8 +325,8 @@ body {
 
 .window-content-main {
     flex: 1;
-    overflow-y: auto;
-    padding-right: 30px; /* Further increased padding */
+    /* overflow-y: auto; // Removed, handled by .view-container */
+    /* padding-right: 30px; // Removed, handled by .view-container */
 }
 
 .window-content h2 {
@@ -418,7 +418,7 @@ body {
     padding: 8px 10px;
     cursor: pointer;
     border-radius: 3px;
-    margin-bottom: 4px; 
+    margin-bottom: 16px; /* Setting to 16px */
     transition: background-color 0.2s ease;
     /* width: fit-content; Kept from previous, li should be as wide as icon + text */
 }

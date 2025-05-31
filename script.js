@@ -246,8 +246,20 @@ document.addEventListener('DOMContentLoaded', function() {
         windowEl.setAttribute('data-current-view', 'list'); 
         windowEl.setAttribute('data-base-folder-id', sectionId.split('-')[0]); 
 
-        let fixedWindowWidth = 780; /* New default width */
-        const fixedWindowHeight = 500; 
+        let fixedWindowWidth = 780; // Default width for folders
+        if (sectionId === 'education') {
+            fixedWindowWidth = 840; // Education window width
+        } else if (sectionId === 'contact') {
+            fixedWindowWidth = 450; // Contact window width
+        } else if (sectionId === 'skills') {
+            fixedWindowWidth = 690; // Skills window width
+        }
+
+        let fixedWindowHeight = 500; // Default height
+        if (sectionId === 'education') {
+            fixedWindowHeight = 420; // Specific height for Education window
+        }
+
         let newLeft, newTop;
 
         if (openWindows.size === 0 || initialScreenCenterLeft === null) {
@@ -279,6 +291,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
         lastPlacedLeftInCurrentLine = newLeft;
         windowEl.style.width = `${fixedWindowWidth}px`; 
+        windowEl.style.height = `${fixedWindowHeight}px`; // This will now use the default 500px or any other specific height logic if added later
         windowEl.style.left = `${Math.max(20, newLeft)}px`;
         windowEl.style.top = `${Math.max(20, newTop)}px`;
         windowEl.style.zIndex = ++currentZIndex;
