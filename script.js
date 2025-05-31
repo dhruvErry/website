@@ -182,6 +182,40 @@ const portfolioContent = {
                 <button class="window-close-bottom js-window-close-bottom" data-section-to-close="contact">Close</button>
             </div>
         `
+    },
+    band: { // New section for Band
+        title: "My Band",
+        content: `
+            <div class="window-content-main">
+                <h2>Greyhound - My Blues & Rock Band</h2>
+                <div class="content">
+                    <p>We are Greyhound, a blues and rock band from Madison, NJ. We primarily play 1960s and 1970s blues, and some rock music from those decades. We have played gigs in the past with and without vocals.</p>
+                    <p><strong>Check us out on YouTube and Instagram:</strong></p>
+                    <div class="social-buttons-group">
+                        <div class="social-link-button">
+                            <img src="https://img.icons8.com/color/48/youtube-play.png" alt="YT" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 8px;"><a href="https://www.youtube.com/channel/UCzB6EnLVQWWWYKmt3QTAf8w/" target="_blank">YouTube</a>
+                        </div>
+                        <div class="social-link-button">
+                            <img src="https://img.icons8.com/color/48/instagram-new--v1.png" alt="IG" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 8px;"><a href="https://www.instagram.com/greyhound.the.band/" target="_blank">Instagram</a>
+                        </div>
+                    </div>
+                    <p><strong>Past Performances (NJ):</strong></p>
+                    <ul>
+                        <li>Daddy Matty's BBQ (Madison, since shut down)</li>
+                        <li>Stone and Rail (Glen Rock)</li>
+                        <li>Blue Moon (South Amboy)</li>
+                        <li>The Drew Pub (Madison)</li>
+                        <li>Parkside Tavern (Morristown)</li>
+                        <li>Ridgewood Eatery</li>
+                        <li>Hamilton Pork (Jersey City)</li>
+                        <li>Hamilton Inn (Jersey City)</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="window-bottom-controls">
+                <button class="window-close-bottom js-window-close-bottom" data-section-to-close="band">Close</button>
+            </div>
+        `
     }
 };
 
@@ -191,6 +225,7 @@ const sectionIcons = {
     skills: "https://files.softicons.com/download/toolbar-icons/ravenna-3d-icons-by-double-j-design/png/256x256/Tools.png",
     education: "https://files.softicons.com/download/toolbar-icons/desktop-education-icons-by-aha-soft/png/96x96/education.png",
     contact: "https://files.softicons.com/download/application-icons/48x48-free-object-icons-by-aha-soft/png/48/Phone.png",
+    band: "https://files.softicons.com/download/tv-movie-icons/back-to-the-future-icons-by-yellow-icon/png/256/guitar.png", // Updated icon for Band
     defaultFile: "https://icons.iconarchive.com/icons/custom-icon-design/mono-general-2/256/document-icon.png" // Default icon for files within folders
 };
 
@@ -263,8 +298,11 @@ document.addEventListener('DOMContentLoaded', function() {
         let newLeft, newTop;
 
         if (openWindows.size === 0 || initialScreenCenterLeft === null) {
-            initialScreenCenterLeft = (window.innerWidth / 2) - (fixedWindowWidth / 2) - 100; 
-            initialScreenCenterTop = (window.innerHeight / 2) - (fixedWindowHeight / 2);
+            const desktopIconsAreaRightEdge = 20 + 80 + 20 + 80; // container.left + col1.width + col_gap + col2.width
+            const marginFromIcons = 40; 
+            initialScreenCenterLeft = desktopIconsAreaRightEdge + marginFromIcons;
+            
+            initialScreenCenterTop = (window.innerHeight / 2) - (fixedWindowHeight / 2); // Keep vertical centering
             
             currentCascadeLineBaseLeft = initialScreenCenterLeft;
             currentCascadeLineBaseTop = initialScreenCenterTop;
@@ -309,13 +347,54 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
             <div class="window-content">
                 <div class="view-container"></div> <!-- Initial empty view container -->
+                <div class="window-bottom-controls"></div> <!-- Sticky bottom controls area -->
             </div>`;
         
         document.querySelector('.desktop').appendChild(windowEl);
         
-        // Populate initial content into the view-container
         const viewContainer = windowEl.querySelector('.view-container');
-        viewContainer.innerHTML = htmlContent; // htmlContent is prepared by openWindow
+        const stickyBottomControls = windowEl.querySelector('.window-bottom-controls');
+
+        // Parse the incoming htmlContent to separate main content and buttons
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = htmlContent;
+        
+        const mainContentElement = tempDiv.querySelector('.window-content-main, .folder-content-main');
+        const buttonsFromHtmlContent = tempDiv.querySelectorAll('.window-bottom-controls > *');
+
+        if (mainContentElement) {
+            viewContainer.appendChild(mainContentElement.cloneNode(true));
+        } else if (htmlContent.includes('<ul class="folder-items-list">')) { // Fallback for folder list if no main wrapper
+             viewContainer.innerHTML = htmlContent; // Assume it's just the list then
+        } else {
+            // For simple content that might not have a .window-content-main wrapper
+            // but also isn't a folder list, put it all in viewContainer.
+            // The button handling below should still work if it has .window-bottom-controls
+             viewContainer.innerHTML = htmlContent;
+        }
+        
+        // Populate sticky bottom controls
+        if (buttonsFromHtmlContent.length > 0) {
+            buttonsFromHtmlContent.forEach(button => {
+                const clonedButton = button.cloneNode(true);
+                if (clonedButton.classList.contains('js-window-close-bottom')) {
+                    clonedButton.addEventListener('click', function() {
+                        const sectionToClose = this.getAttribute('data-section-to-close') || sectionId;
+                        closeWindowFunction(sectionToClose);
+                    });
+                }
+                stickyBottomControls.appendChild(clonedButton);
+            });
+        } else if (portfolioContent[sectionId] && portfolioContent[sectionId].type !== 'folder') {
+            // For non-folder items that might not have predefined buttons in their HTML
+            // Add a default close button
+            const closeButton = document.createElement('button');
+            closeButton.className = 'window-close-bottom js-window-close-bottom';
+            closeButton.textContent = 'Close';
+            closeButton.setAttribute('data-section-to-close', sectionId);
+            closeButton.addEventListener('click', () => closeWindowFunction(sectionId));
+            stickyBottomControls.appendChild(closeButton);
+        }
 
         // Add event listeners for header buttons
         const minimizeBtn = windowEl.querySelector('.minimize-btn');
@@ -323,16 +402,6 @@ document.addEventListener('DOMContentLoaded', function() {
         minimizeBtn.addEventListener('click', () => minimizeWindowFunction(sectionId)); 
         closeBtn.addEventListener('click', () => closeWindowFunction(sectionId)); 
 
-        // Event listener for bottom close button (if it exists in the initial htmlContent)
-        // This needs to be scoped to the viewContainer now
-        const bottomCloseBtn = viewContainer.querySelector('.js-window-close-bottom');
-        if (bottomCloseBtn) {
-            bottomCloseBtn.addEventListener('click', function() {
-                const sectionToClose = this.getAttribute('data-section-to-close');
-                if (sectionToClose) closeWindowFunction(sectionToClose);
-            });
-        }
-        
         makeDraggable(windowEl);
         windowEl.addEventListener('mousedown', () => bringToFront(windowEl));
         makeResizable(windowEl);
@@ -352,10 +421,40 @@ document.addEventListener('DOMContentLoaded', function() {
                          </li>`;
         });
         itemsHtml += '</ul></div>';
-        itemsHtml += `<div class="window-bottom-controls">
-                        <button class="window-close-bottom js-window-close-bottom" data-section-to-close="${folderId}">Close</button>
-                     </div>`;
         return itemsHtml;
+    }
+
+    // New Helper function to manage sticky bottom controls
+    function updateStickyBottomControls(windowEl, currentSectionId, isItemView = false, itemData = null, parentFolderId = null) {
+        const stickyBottomControls = windowEl.querySelector('.window-bottom-controls');
+        if (!stickyBottomControls) return;
+        stickyBottomControls.innerHTML = ''; // Clear existing buttons
+
+        if (isItemView && itemData && parentFolderId) {
+            // Add Back Button
+            const backButtonImg = document.createElement('img');
+            backButtonImg.className = 'folder-back-button';
+            backButtonImg.src = 'https://preview.redd.it/whistler-xp-icons-redesigned-see-captions-v0-0u05lpyyffnc1.png?width=640&crop=smart&auto=webp&s=7f2276b769212d4621dada49eb1932abfd60a940';
+            backButtonImg.alt = 'Back';
+            backButtonImg.onclick = () => showFolderList(windowEl, parentFolderId);
+            stickyBottomControls.appendChild(backButtonImg);
+
+            // Add Close button (for the parent folder)
+            const closeButton = document.createElement('button');
+            closeButton.className = 'window-close-bottom js-window-close-bottom';
+            closeButton.textContent = 'Close';
+            // closeButton.setAttribute('data-section-to-close', parentFolderId); // Not needed as onclick is direct
+            closeButton.onclick = () => closeWindowFunction(parentFolderId);
+            stickyBottomControls.appendChild(closeButton);
+
+        } else { // It's a Folder List view or a non-folder section
+            const closeButton = document.createElement('button');
+            closeButton.className = 'window-close-bottom js-window-close-bottom';
+            closeButton.textContent = 'Close';
+            // closeButton.setAttribute('data-section-to-close', currentSectionId); // Not needed
+            closeButton.onclick = () => closeWindowFunction(currentSectionId);
+            stickyBottomControls.appendChild(closeButton);
+        }
     }
 
     function showFolderList(windowEl, folderId) {
@@ -371,6 +470,9 @@ document.addEventListener('DOMContentLoaded', function() {
             viewContainer.innerHTML = generateFolderListHTML(folderId, folderData);
             windowEl.setAttribute('data-current-view', 'list');
 
+            // Update sticky bottom controls for folder list view
+            updateStickyBottomControls(windowEl, folderId, false);
+
             // Re-attach listeners for folder items
             viewContainer.querySelectorAll('.folder-item').forEach(itemEl => {
                 itemEl.addEventListener('dblclick', function() {
@@ -380,13 +482,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 });
             });
 
-            // Add listener for the new bottom close button
-            const bottomCloseBtn = viewContainer.querySelector('.js-window-close-bottom');
-            if (bottomCloseBtn) {
-                bottomCloseBtn.addEventListener('click', function() {
-                    closeWindowFunction(this.getAttribute('data-section-to-close'));
-                });
-            }
             viewContainer.classList.remove('content-fading');
         }, 250); // Match CSS transition duration
     }
@@ -403,31 +498,22 @@ document.addEventListener('DOMContentLoaded', function() {
         viewContainer.classList.add('content-fading');
 
         setTimeout(() => {
-            viewContainer.innerHTML = itemData.content; // Item's HTML content
+            // Parse itemData.content to get the main content for viewContainer
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = itemData.content;
+            const mainContentForItem = tempDiv.querySelector('.window-content-main');
+            
+            if (mainContentForItem) {
+                viewContainer.innerHTML = mainContentForItem.outerHTML;
+            } else {
+                viewContainer.innerHTML = itemData.content; // Fallback if no specific main wrapper
+            }
+            
             windowEl.setAttribute('data-current-view', 'item');
             windowEl.setAttribute('data-current-item-id', itemId);
 
-            const itemBottomCloseBtn = viewContainer.querySelector('.js-window-close-bottom');
-            if (itemBottomCloseBtn) {
-                itemBottomCloseBtn.setAttribute('data-section-to-close', parentFolderId);
-                itemBottomCloseBtn.onclick = () => closeWindowFunction(parentFolderId); 
-            }
-
-            // Handle the back button placement
-            const bottomControlsArea = viewContainer.querySelector('.window-bottom-controls');
-            let backButtonImg = bottomControlsArea ? bottomControlsArea.querySelector('.folder-back-button') : null;
-
-            if (!backButtonImg && bottomControlsArea && itemBottomCloseBtn) { 
-                backButtonImg = document.createElement('img');
-                backButtonImg.className = 'folder-back-button';
-                backButtonImg.src = 'https://preview.redd.it/whistler-xp-icons-redesigned-see-captions-v0-0u05lpyyffnc1.png?width=640&crop=smart&auto=webp&s=7f2276b769212d4621dada49eb1932abfd60a940';
-                backButtonImg.alt = 'Back';
-                bottomControlsArea.insertBefore(backButtonImg, itemBottomCloseBtn);
-            }
-            
-            if (backButtonImg) {
-                backButtonImg.onclick = () => showFolderList(windowEl, parentFolderId);
-            }
+            // Update sticky bottom controls for item view
+            updateStickyBottomControls(windowEl, itemId, true, itemData, parentFolderId);
             
             viewContainer.classList.remove('content-fading');
         }, 250); // Match CSS transition duration
@@ -447,14 +533,41 @@ document.addEventListener('DOMContentLoaded', function() {
         }
 
         let initialContentHtml;
+        let mainContentForViewContainer;
+        let buttonsForStickyControls = [];
+
         if (data.type === 'folder') {
-            initialContentHtml = generateFolderListHTML(idToOpen, data);
+            mainContentForViewContainer = generateFolderListHTML(idToOpen, data);
+            // Buttons for folder list will be added by updateStickyBottomControls via createWindow -> showFolderList flow
         } else {
             // For non-folder types like Skills, Contact
-            initialContentHtml = data.content;
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = data.content;
+            const mainContentElement = tempDiv.querySelector('.window-content-main');
+            const buttonsElements = tempDiv.querySelectorAll('.window-bottom-controls > *');
+
+            if (mainContentElement) {
+                mainContentForViewContainer = mainContentElement.outerHTML;
+            } else {
+                mainContentForViewContainer = data.content; // Assume whole content if no main part
+            }
+            
+            buttonsElements.forEach(btn => buttonsForStickyControls.push(btn.cloneNode(true)));
         }
         
-        const windowEl = createWindow(idToOpen, titleForWindow, initialContentHtml, iconForWindow);
+        // createWindow now expects full initialHTML and parses it.
+        // For folders, generateFolderListHTML no longer includes bottom controls.
+        // For non-folders, data.content should still have them.
+        // createWindow's new logic will handle placing main content in viewContainer
+        // and buttons in the sticky .window-bottom-controls.
+        const windowEl = createWindow(idToOpen, titleForWindow, data.type === 'folder' ? mainContentForViewContainer : data.content, iconForWindow);
+        
+        // If it's a folder, ensure its specific close button is set up by updateStickyBottomControls
+        // This is needed because createWindow's generic button handling might not wire it to the folderId correctly
+        if (data.type === 'folder') {
+            updateStickyBottomControls(windowEl, idToOpen, false);
+        }
+        
         openWindows.set(idToOpen, windowEl);
         // Taskbar only cares about the main idToOpen (folder ID or standalone section ID)
         updateTaskbar(idToOpen, titleForWindow, iconForWindow, false, true);
