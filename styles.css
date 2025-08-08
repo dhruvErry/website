@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family: 'Rubik', sans-serif;
+    font-family: 'Lucida Grande', sans-serif;
     font-size: 12px;
     letter-spacing: 0.5px;
     overflow: hidden;
@@ -87,7 +87,7 @@ body {
     border-radius: 8px 8px 0 0;
     box-shadow: 4px 4px 12px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.3) inset;
     z-index: 100;
-    font-family: 'Rubik', sans-serif;
+    font-family: 'Lucida Grande', sans-serif;
     transition: all 0.3s cubic-bezier(0.4, 0.0, 0.2, 1);
     transform-origin: center center;
 }
@@ -188,7 +188,7 @@ body {
     font-weight: bold;
     font-size: 12px;
     text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
-    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-family: 'Lucida Grande', sans-serif;
 }
 
 .window-controls {
@@ -201,7 +201,7 @@ body {
     height: 21px;
     border: 1px solid #ece9d8;
     background: linear-gradient(to bottom, #ffffff 0%, #f5f5f5 50%, #e8e8e8 51%, #d6d6d6 100%);
-    font-family: "Trebuchet MS", 'MS Sans Serif', Tahoma, sans-serif;
+    font-family: 'Lucida Grande', sans-serif;
     font-size: 10px;
     font-weight: bold;
     cursor: pointer;
@@ -348,7 +348,7 @@ body {
     font-size: 22px;
     border-bottom: 2px solid #316ac5;
     padding-bottom: 8px;
-    font-family: 'Rubik', sans-serif;
+    font-family: 'Lucida Grande', sans-serif;
     text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.8);
 }
 
@@ -356,7 +356,7 @@ body {
     color: #000;
     line-height: 1.75;
     font-size: 15px;
-    font-family: 'Rubik', sans-serif;
+    font-family: 'Lucida Grande', sans-serif;
 }
 
 .window-content .content p {
@@ -383,7 +383,7 @@ body {
     border: 1px solid #999;
     border-radius: 3px;
     padding: 6px 20px;
-    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-family: 'Lucida Grande', sans-serif;
     font-size: 12px;
     font-weight: normal;
     color: #000;
@@ -409,30 +409,31 @@ body {
     height: 100%; 
     display: flex; /* Use flex to center its child (the ul) */
     flex-direction: column; /* Although only one child, for consistency */
-    justify-content: center; /* Vertical centering of the ul */
+    justify-content: flex-start; /* Start from top, no centering */
     align-items: center; /* Horizontal centering of the ul */
 }
 
 .folder-items-list {
     list-style: none;
-    padding: 10px; /* Add some padding around the list if needed */
+    padding: -20px 5px 5px 5px; /* Reduced top padding from 2px to 1px */
     margin: 0;
     /* flex-grow: 1; Removed */
     /* overflow-y: auto; Should be on folder-content-main if list exceeds window */
-    /* display: flex; Removed */
-    /* flex-direction: column; Removed */
-    /* align-items: center; Removed */
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
     /* justify-content: center; Removed */
     width: fit-content; /* Make the UL itself only as wide as its content */
 }
 
 .folder-item {
     display: flex;
+    flex-direction: column;
     align-items: center; 
-    padding: 8px 10px;
+    padding: 6px 10px;
     cursor: pointer;
     border-radius: 3px;
-    margin-bottom: 16px; /* Setting to 16px */
+    margin-bottom: 4px; /* Reduced from 8px to 4px */
     transition: background-color 0.2s ease;
     /* width: fit-content; Kept from previous, li should be as wide as icon + text */
 }
@@ -442,10 +443,35 @@ body {
 }
 
 .folder-item-icon {
-    width: 24px; /* Adjust size as needed */
-    height: 24px;
-    margin-right: 10px;
+    width: 360px; /* Even bigger preview size */
+    height: 200px; /* Larger aspect ratio for preview */
+    margin-bottom: 25px; /* Even more space between image and text */
+    object-fit: contain; /* Show full image without cropping */
+    border-radius: 10px; /* Larger rounded corners */
+    box-shadow: 0 5px 10px rgba(0,0,0,0.25); /* More prominent shadow */
+    background-color: transparent; /* No white background */
+}
+
+/* Separate styles for top folder item icon (Codenames) */
+.folder-item-icon.codenames {
+    width: 500px;
+    height: auto;
+    margin-bottom: 25px;
     object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.25);
+    background-color: transparent;
+}
+
+/* Separate styles for bottom folder item icon (Mastermind) */
+.folder-item-icon.mastermind {
+    width: auto; /* Narrower width */
+    height: 330px; /* Smaller height */
+    margin-bottom: 25px;
+    object-fit: contain;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.25);
+    background-color: transparent;
 }
 
 .folder-item-text-content {
@@ -457,7 +483,7 @@ body {
 .folder-item-title {
     font-size: 15px;
     color: #000;
-    font-family: 'Rubik', sans-serif;
+    font-family: 'Lucida Grande', sans-serif;
     margin-bottom: 2px;
 }
 
@@ -465,7 +491,7 @@ body {
     font-size: 12px; /* Slightly smaller */
     color: #555; /* Muted color */
     margin-top: 2px;
-    font-family: 'Rubik', sans-serif; /* Ensure Rubik font is applied */
+    font-family: 'Lucida Grande', sans-serif; /* Ensure Lucida Grande font is applied */
 }
 
 /* Back button (image) for folder navigation */
@@ -678,7 +704,7 @@ body {
 .taskbar-item-text {
     margin-left: 5px;
     font-size: 12px;
-    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-family: 'Lucida Grande', sans-serif;
     /* text-shadow: 1px 1px 1px rgba(0,0,0,0.4); Removed from here, added to .taskbar-item */
 }
 
@@ -696,7 +722,7 @@ body {
     border-top-right-radius: 6px;
     box-shadow: 3px -3px 8px rgba(0,0,0,0.3);
     z-index: 2000; /* Above other windows */
-    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-family: 'Lucida Grande', sans-serif;
     font-size: 12px;
     color: #000000;
 
@@ -741,7 +767,7 @@ body {
     font-size: 18px;
     font-weight: bold;
     text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
-    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-family: 'Lucida Grande', sans-serif;
 }
 
 .start-menu-content {
@@ -830,7 +856,7 @@ body {
     font-weight: normal;
     cursor: pointer;
     text-align: center;
-    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-family: 'Lucida Grande', sans-serif;
 }
 .all-programs-btn:hover {
     background: linear-gradient(to bottom, #FFFFFF 0%, #EFEFEF 100%);
@@ -860,7 +886,7 @@ body {
     display: flex;
     align-items: center;
     font-size: 12px;
-    font-family: "Trebuchet MS", Tahoma, sans-serif;
+    font-family: 'Lucida Grande', sans-serif;
 }
 
 .start-menu-footer button img {
@@ -1004,3 +1030,35 @@ body {
 }
 
 .window .content ul li { margin-bottom: 2px; }
+
+/* Project preview image styles */
+.project-preview-wrapper {
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.project-preview-image {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #c0c0c0;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Separate styles for top image (Codenames) */
+.project-preview-image.codenames {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #c0c0c0;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Separate styles for bottom image (Mastermind) */
+.project-preview-image.mastermind {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #c0c0c0;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}

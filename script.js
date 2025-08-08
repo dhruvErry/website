@@ -21,14 +21,18 @@ const portfolioContent = {
                                 </div>
                             </div>
                             <ul style="margin-top: 15px; padding-left: 20px;">
-                                <li style="margin-bottom: 10px;">Build a real-time multiplayer game using socket.io and Jotai, enabling live updates, team state management, and persistent sessions across page reloads, with a visually engaging UI</li>
+                                <li style="margin-bottom: 10px;">Built a real-time multiplayer game using socket.io and Jotai, enabling live updates, team state management, and persistent sessions across page reloads, with a visually engaging UI</li>
                                 <li style="margin-bottom: 10px;">Integrate OpenAI's API to generate smart clues based on target words and board context, simulating human spymaster</li>
-                                <li style="margin-bottom: 10px;">Design a scalable room-based backend with role-based views, turn logic, and reconnection support for smooth gameplay</li>
+                                <li style="margin-bottom: 10px;">Designed a scalable room-based backend with role-based views, turn logic, and reconnection support for smooth gameplay</li>
                             </ul>
-                            <br>
+                            
                             <p><a href="https://codenamesai.onrender.com" target="_blank" style="color: #0054e3; text-decoration: underline;">Live Demo (Render)</a></p>
                             <br>
                             <p><em>Source code can be viewed on GitHub.</em></p>
+                            <br>
+                            <div class="project-preview-wrapper">
+                                <img src="https://i.snipboard.io/cmEFNT.jpg" alt="Codenames game interface" class="project-preview-image codenames" style="background-color: #fff;">
+                            </div>
                         </div>
                     </div>
                     <div class="window-bottom-controls">
@@ -53,10 +57,20 @@ const portfolioContent = {
                                     <span class="tech-tag">CSS</span>
                                 </div>
                             </div>
-                            <p>Adapted the popular board game Mastermind into a two-player full-stack application hosted online. It is the only multiplayer version of this game on the internet. Engineered backend using Express and frontend with HTML, CSS, and JavaScript, providing a graphical user interface inspired by the board game. Facilitated real-time communication between clients and server via sockets using socket.io, enabling two-player gameplay.</p>
-                            <p><a href="https://mastermind-e730.onrender.com/" target="_blank">Play it here: https://mastermind-e730.onrender.com/</a></p>
+                            <ul>
+                                <li>Adapted the popular board game Mastermind into a two-player full-stack application hosted online</li>
+                                <strong>It is the only multiplayer version of this game on the internet</strong>
+                                <li>Engineered backend using Express and frontend with HTML, CSS, and JavaScript, providing a graphical user interface inspired by the board game</li>
+                                <li>Facilitated real-time communication between clients and server via sockets using socket.io, enabling two-player gameplay</li>
+                            </ul>
+                            <br>
+                            <p><a href="https://mastermind-e730.onrender.com/" target="_blank">Play it here</a></p>
                             <br>
                             <p><em>Source code can be viewed on GitHub.</em></p>
+                            <br>
+                            <div class="project-preview-wrapper">
+                                <img src="https://i.ibb.co/XXx2CBF/five.png" alt="Mastermind game interface" class="project-preview-image mastermind" style="background-color: #fff;">
+                            </div>
                         </div>
                     </div>
                     <div class="window-bottom-controls">
@@ -311,6 +325,8 @@ document.addEventListener('DOMContentLoaded', function() {
             fixedWindowWidth = 690; // Skills window width
         } else if (sectionId === 'band') {
             fixedWindowWidth = 920; // Larger Band window width
+        } else if (sectionId === 'projects') {
+            fixedWindowWidth = 970; // Taller Projects window for even bigger previews
         }
 
         let fixedWindowHeight = 500; // Default height
@@ -318,6 +334,8 @@ document.addEventListener('DOMContentLoaded', function() {
             fixedWindowHeight = 420; // Specific height for Education window
         } else if (sectionId === 'band') {
             fixedWindowHeight = 600; // Slightly shorter Band window
+        } else if (sectionId === 'projects') {
+            fixedWindowHeight = 540; // Taller Projects window for even bigger previews
         }
 
         let newLeft, newTop;
@@ -442,8 +460,18 @@ document.addEventListener('DOMContentLoaded', function() {
     function generateFolderListHTML(folderId, folderData) {
         let itemsHtml = '<div class="folder-content-main"><ul class="folder-items-list">';
         folderData.items.forEach(item => {
+            // Use custom thumbnails for projects
+            let iconSrc = sectionIcons.defaultFile;
+            if (folderId === 'projects') {
+                if (item.id === 'proj-codenames') {
+                    iconSrc = 'https://i.snipboard.io/cmEFNT.jpg';
+                } else if (item.id === 'proj-mastermind') {
+                    iconSrc = 'https://i.ibb.co/XXx2CBF/five.png';
+                }
+            }
+            
             itemsHtml += `<li data-item-id="${item.id}" data-parent-folder-id="${folderId}" class="folder-item">
-                            <img src="${sectionIcons.defaultFile}" alt="File" class="folder-item-icon">
+                            <img src="${iconSrc}" alt="File" class="folder-item-icon ${item.id === 'proj-codenames' ? 'codenames' : item.id === 'proj-mastermind' ? 'mastermind' : ''}">
                             <div class="folder-item-text-content">
                                 <span class="folder-item-title">${item.title}</span>
                                 ${item.dateRange ? `<span class="folder-item-date">${item.dateRange}</span>` : ''}
@@ -994,6 +1022,17 @@ document.addEventListener('DOMContentLoaded', function() {
             // For example, if an item is clicked: 
             // startMenu.classList.remove('start-menu-open');
             // startButton.classList.remove('active');
+        });
+
+        // Ensure icons in the Start Menu always display by adding a reliable fallback
+        document.querySelectorAll('#start-menu li img').forEach(img => {
+            // Some CDNs block hotlinking; set referrer policy and a fallback icon
+            img.referrerPolicy = 'no-referrer';
+            img.addEventListener('error', function onImgError() {
+                if (img.dataset.fallbackApplied === '1') return; // prevent loops
+                img.dataset.fallbackApplied = '1';
+                img.src = sectionIcons.defaultFile;
+            });
         });
     }
 
