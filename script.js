@@ -5,37 +5,40 @@ const portfolioContent = {
         type: "folder",
         items: [
             {
-                id: "proj-bogo-bite",
-                title: "BOGO Bite App",
-                dateRange: "Jan 2024 — May 2024",
+                id: "proj-codenames",
+                title: "AI Codenames Online Game (Ongoing)",
                 content: `
                     <div class="window-content-main">
-                        <h2>BOGO Bite App</h2>
+                        <h2>AI Codenames Online Game (Ongoing)</h2>
                         <div class="content">
                             <div class="tech-stack-container">
                                 <div class="tech-tags">
-                                    <span class="tech-tag">Django</span>
-                                    <span class="tech-tag">Python</span>
-                                    <span class="tech-tag">React Native</span>
-                                    <span class="tech-tag">JavaScript</span>
-                                    <span class="tech-tag">MySQL</span>
+                                    <span class="tech-tag">React</span>
+                                    <span class="tech-tag">Node.js</span>
+                                    <span class="tech-tag">Express</span>
+                                    <span class="tech-tag">socket.io</span>
+                                    <span class="tech-tag">OpenAI</span>
                                 </div>
-                                <p class="tech-date-range">(Jan 2024 — May 2024)</p>
                             </div>
-                            <p>Developed full-stack mobile application for restaurants to offer and manage coupons. Engineered robust Django backend serving RESTful APIs for seamless communication with React Native frontend. Built endpoints for account authorization, password validation, and data storage/retrieval from MySQL database.</p>
+                            <ul style="margin-top: 15px; padding-left: 20px;">
+                                <li style="margin-bottom: 10px;">Build a real-time multiplayer game using socket.io and Jotai, enabling live updates, team state management, and persistent sessions across page reloads, with a visually engaging UI</li>
+                                <li style="margin-bottom: 10px;">Integrate OpenAI's API to generate smart clues based on target words and board context, simulating human spymaster</li>
+                                <li style="margin-bottom: 10px;">Design a scalable room-based backend with role-based views, turn logic, and reconnection support for smooth gameplay</li>
+                            </ul>
+                            <br>
+                            <p><a href="https://codenamesai.onrender.com" target="_blank" style="color: #0054e3; text-decoration: underline;">Live Demo (Render)</a></p>
                             <br>
                             <p><em>Source code can be viewed on GitHub.</em></p>
                         </div>
                     </div>
                     <div class="window-bottom-controls">
-                        <button class="window-close-bottom js-window-close-bottom" data-section-to-close="projects-proj-bogo-bite">Close</button>
+                        <button class="window-close-bottom js-window-close-bottom" data-section-to-close="projects-proj-codenames">Close</button>
                     </div>
                 `
             },
             {
                 id: "proj-mastermind",
                 title: "Mastermind Online Game",
-                dateRange: "Aug 2020 — Dec 2020",
                 content: `
                     <div class="window-content-main">
                         <h2>Mastermind Online Game</h2>
@@ -49,7 +52,6 @@ const portfolioContent = {
                                     <span class="tech-tag">HTML</span>
                                     <span class="tech-tag">CSS</span>
                                 </div>
-                                <p class="tech-date-range">(Aug 2020 — Dec 2020)</p>
                             </div>
                             <p>Adapted the popular board game Mastermind into a two-player full-stack application hosted online. It is the only multiplayer version of this game on the internet. Engineered backend using Express and frontend with HTML, CSS, and JavaScript, providing a graphical user interface inspired by the board game. Facilitated real-time communication between clients and server via sockets using socket.io, enabling two-player gameplay.</p>
                             <p><a href="https://mastermind-e730.onrender.com/" target="_blank">Play it here: https://mastermind-e730.onrender.com/</a></p>
@@ -76,8 +78,12 @@ const portfolioContent = {
                     <div class="window-content-main">
                         <h2>DSSI Researcher (Drew University Summer Science Institute)</h2>
                         <div class="content">
-                            <p><strong>Client: Pure Green Cement</strong> | Drew University (May 2024 — Jul 2024)</p>
-                            <p>Developed Python script utilizing LLMs and CrewAI agents for large-scale name matching tasks across OpenAlex and Google Scholar databases, enabling seamless consolidation of millions of academic records. Improved script performance by 60% through optimized code logic and efficient algorithm design. Created and maintained custom PostgreSQL database for matched names from millions of rows of data.</p>
+                            <p><em>Drew University | Client: Pure Green Cement</em></p>
+                            <ul>
+                                <li>Built multi-agent pipeline in Python utilizing LLMs and CrewAI agents for large-scale name matching across OpenAlex and Google Scholar, consolidating millions of academic records</li>
+                                <li>Improved pipeline performance by 60% through parallel processing, prompt engineering, and optimized algorithm design</li>
+                                <li>Maintained custom PostgreSQL database to manage millions of matched names, ensuring scalability and production readiness</li>
+                            </ul>
                         </div>
                     </div>
                     <div class="window-bottom-controls">
@@ -93,8 +99,12 @@ const portfolioContent = {
                     <div class="window-content-main">
                         <h2>Software Engineering Intern</h2>
                         <div class="content">
-                            <p><strong>ConnectWise (American software company offering IT solutions)</strong> (Jun 2023 — Aug 2023)</p>
-                            <p>Built a Dockerized full-stack web application using Django, Python, and HTML/CSS, hosted on Render, to automate the creation of offer letters for prospective candidates - resulting in a 40% reduction in letter generation time. Integrated Python libraries including openpyxl and pandas to extract candidate information from Excel files, calculate salary structures, and generate personalized Excel files containing offer letters. Streamlined HR operations by independently developing app for offer letter generation, now actively used for recruitment.</p>
+                            <p><em>ConnectWise (American software company offering IT solutions)</em></p>
+                            <ul>
+                                <li>Automated offer letter generation, reducing turnaround time by 40% by building a Dockerized full‑stack web application (Python, Django, HTML/CSS) deployed on Render</li>
+                                <li>Integrated Python libraries including <code>openpyxl</code> and <code>pandas</code> to extract candidate information from Excel, calculate salary structures, and generate personalized Excel files containing offer letters</li>
+                                <li>Delivered a production‑ready internal system used daily by the HR team for recruitment; managed deployment, resolved issues, and iterated based on feedback</li>
+                            </ul>
                         </div>
                     </div>
                     <div class="window-bottom-controls">
@@ -110,8 +120,12 @@ const portfolioContent = {
                     <div class="window-content-main">
                         <h2>Software Engineering Intern</h2>
                         <div class="content">
-                            <p><strong>Nykaa (Leading e-commerce platform for fashion and beauty)</strong> (Jun 2022 — Aug 2022)</p>
-                            <p>Developed a machine learning program using Python's scikit-learn library to analyze product inventory in MySQL database, identifying over 1000 erroneous discount values. Created a program to generate suitable discount ranges for 1 million products, streamlining pricing strategies. Enhanced inventory management using data-driven solutions, improving accuracy and efficiency in product discounting.</p>
+                            <p><em>Nykaa (Leading e‑commerce platform for fashion and beauty)</em></p>
+                            <ul>
+                                <li>Developed a machine learning program using Python's <code>scikit‑learn</code> to analyze product inventory in MySQL, identifying over 10,000 erroneous discount values</li>
+                                <li>Created a program to generate suitable discount ranges for 1 million products, streamlining pricing strategies</li>
+                                <li>Enhanced inventory management with data‑driven solutions, improving accuracy and efficiency in product discounting</li>
+                            </ul>
                         </div>
                     </div>
                     <div class="window-bottom-controls">
@@ -189,6 +203,11 @@ const portfolioContent = {
             <div class="window-content-main">
                 <h2>Greyhound - My Blues & Rock Band</h2>
                 <div class="content">
+                    <div class="band-image-with-arrows">
+                        <div class="scroll-arrow left" aria-hidden="true">↓</div>
+                        <img src="https://i.ibb.co/HTXvFMrr/PT1.jpg" alt="Greyhound band performing" class="band-photo">
+                        <div class="scroll-arrow right" aria-hidden="true">↓</div>
+                    </div>
                     <p>We are Greyhound, a blues and rock band from Madison, NJ. We primarily play 1960s and 1970s blues, and some rock music from those decades. We have played gigs in the past with and without vocals.</p>
                     <p><strong>Check us out on YouTube and Instagram:</strong></p>
                     <div class="social-buttons-group">
@@ -229,6 +248,8 @@ const sectionIcons = {
     defaultFile: "https://icons.iconarchive.com/icons/custom-icon-design/mono-general-2/256/document-icon.png" // Default icon for files within folders
 };
 
+// (Removed: configurable Band photo URL) Using direct image link in content.
+
 // Global variables for window management
 let openWindows = new Map();
 let minimizedWindows = new Set();
@@ -263,7 +284,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const startMenu = document.getElementById('start-menu'); // Get Start menu
 
     desktopIcons.forEach(icon => {
-        icon.addEventListener('dblclick', function() {
+        icon.addEventListener('click', function() {
             const sectionKey = this.getAttribute('data-section'); // e.g., "projects"
             const sectionData = portfolioContent[sectionKey];
             if (sectionData) {
@@ -288,11 +309,15 @@ document.addEventListener('DOMContentLoaded', function() {
             fixedWindowWidth = 450; // Contact window width
         } else if (sectionId === 'skills') {
             fixedWindowWidth = 690; // Skills window width
+        } else if (sectionId === 'band') {
+            fixedWindowWidth = 920; // Larger Band window width
         }
 
         let fixedWindowHeight = 500; // Default height
         if (sectionId === 'education') {
             fixedWindowHeight = 420; // Specific height for Education window
+        } else if (sectionId === 'band') {
+            fixedWindowHeight = 600; // Slightly shorter Band window
         }
 
         let newLeft, newTop;
@@ -326,6 +351,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 newTop = currentCascadeLineBaseTop;
                 windowsInCurrentLineCount = 1;
             }
+        }
+        // Override placement for Band window: top-right
+        if (sectionId === 'band') {
+            newLeft = Math.max(20, window.innerWidth - fixedWindowWidth - 20);
+            newTop = 20;
         }
         lastPlacedLeftInCurrentLine = newLeft;
         windowEl.style.width = `${fixedWindowWidth}px`; 
@@ -475,7 +505,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
             // Re-attach listeners for folder items
             viewContainer.querySelectorAll('.folder-item').forEach(itemEl => {
-                itemEl.addEventListener('dblclick', function() {
+                itemEl.addEventListener('click', function() {
                     const pFolderId = this.getAttribute('data-parent-folder-id');
                     const itemId = this.getAttribute('data-item-id');
                     showItemInFolderWindow(windowEl, pFolderId, itemId);
@@ -576,7 +606,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const viewContainer = windowEl.querySelector('.view-container');
         if (viewContainer && data.type === 'folder') {
             viewContainer.querySelectorAll('.folder-item').forEach(itemEl => {
-                itemEl.addEventListener('dblclick', function() {
+                itemEl.addEventListener('click', function() {
                     const parentFolderId = this.getAttribute('data-parent-folder-id');
                     const itemId = this.getAttribute('data-item-id');
                     // Get the window element for the parent folder
@@ -978,4 +1008,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         }
     });
-}); 
+});
