@@ -1,4 +1,55 @@
 // Section content for each portfolio area
+// Intro video setup
+document.addEventListener('DOMContentLoaded', () => {
+    const overlay = document.getElementById('intro-video-overlay');
+    const videoEl = document.getElementById('intro-video');
+    if (!overlay || !videoEl) return;
+
+    // Replace with your video URL named "merjd" as requested
+    const introSrc = 'merjd.mp4';
+
+    // Prepare video; will start on user tap so we can enable sound
+    videoEl.src = introSrc;
+    videoEl.setAttribute('playsinline', '');
+    videoEl.muted = false; // we will start after user gesture
+    videoEl.autoplay = false;
+    videoEl.controls = false;
+
+    const hideOverlay = () => {
+        overlay.classList.remove('show');
+        overlay.setAttribute('aria-hidden', 'true');
+        videoEl.pause();
+    };
+
+    // First tap starts video with audio; second tap closes
+    let hasStarted = false;
+    overlay.addEventListener('click', async () => {
+        if (!hasStarted) {
+            hasStarted = true;
+            try {
+                await videoEl.play();
+                document.getElementById('intro-tap-message')?.remove();
+            } catch (e) {
+                // If play fails, keep message so user can try again
+            }
+            return;
+        }
+        hideOverlay();
+    });
+
+    const showOverlay = () => {
+        overlay.classList.add('show');
+        overlay.setAttribute('aria-hidden', 'false');
+    };
+
+    // If the video fails to load, don't block the site
+    videoEl.onerror = () => hideOverlay();
+    videoEl.onended = hideOverlay;
+
+    // Show tap-to-enter screen
+    showOverlay();
+});
+
 const portfolioContent = {
     projects: {
         title: "Projects",
@@ -318,11 +369,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         let fixedWindowWidth = 780; // Default width for folders
         if (sectionId === 'education') {
-            fixedWindowWidth = 840; // Education window width
+            fixedWindowWidth = 860; // Education window width
         } else if (sectionId === 'contact') {
             fixedWindowWidth = 450; // Contact window width
         } else if (sectionId === 'skills') {
-            fixedWindowWidth = 690; // Skills window width
+            fixedWindowWidth = 730; // Skills window width
         } else if (sectionId === 'band') {
             fixedWindowWidth = 920; // Larger Band window width
         } else if (sectionId === 'projects') {
@@ -331,7 +382,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         let fixedWindowHeight = 500; // Default height
         if (sectionId === 'education') {
-            fixedWindowHeight = 420; // Specific height for Education window
+            fixedWindowHeight = 425; // Specific height for Education window
         } else if (sectionId === 'band') {
             fixedWindowHeight = 600; // Slightly shorter Band window
         } else if (sectionId === 'projects') {
@@ -458,7 +509,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function generateFolderListHTML(folderId, folderData) {
-        let itemsHtml = '<div class="folder-content-main"><ul class="folder-items-list">';
+        const listClass = folderId === 'projects' ? 'folder-items-list projects-folder' : 'folder-items-list compact-folder';
+        let itemsHtml = `<div class="folder-content-main"><ul class="${listClass}">`;
         folderData.items.forEach(item => {
             // Use custom thumbnails for projects
             let iconSrc = sectionIcons.defaultFile;

@@ -344,7 +344,7 @@ body {
 
 .window-content h2 {
     color: #003c74;
-    margin-bottom: 20px;
+    margin-bottom: 26px; /* Added a little space below the line */
     font-size: 22px;
     border-bottom: 2px solid #316ac5;
     padding-bottom: 8px;
@@ -415,27 +415,44 @@ body {
 
 .folder-items-list {
     list-style: none;
-    padding: -20px 5px 5px 5px; /* Reduced top padding from 2px to 1px */
+    padding: 5px; /* Generic folders: simple padding */
     margin: 0;
-    /* flex-grow: 1; Removed */
-    /* overflow-y: auto; Should be on folder-content-main if list exceeds window */
-    display: flex;
-    flex-direction: row;
-    gap: 20px;
-    /* justify-content: center; Removed */
-    width: fit-content; /* Make the UL itself only as wide as its content */
+}
+
+/* Explicit compact layout for non-Projects folders */
+.compact-folder {
+    display: block;
+    width: auto; /* allow intrinsic width so it can center */
+}
+
+.compact-folder .folder-item {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    margin-bottom: 22px !important; /* more space between items */
+}
+
+.compact-folder .folder-item-icon {
+    width: 56px !important;
+    height: 56px !important;
+    margin-right: 12px !important;
+    margin-bottom: 0 !important;
+    box-shadow: none !important;
+}
+
+/* Center compact folder list within the window both vertically and horizontally */
+.folder-content-main > ul.compact-folder {
+    margin: auto; /* centers along both axes in flex column parent */
 }
 
 .folder-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center; 
+    display: flex;              /* Generic folders: row layout */
+    align-items: center;
     padding: 6px 10px;
     cursor: pointer;
     border-radius: 3px;
-    margin-bottom: 4px; /* Reduced from 8px to 4px */
+    margin-bottom: 6px;
     transition: background-color 0.2s ease;
-    /* width: fit-content; Kept from previous, li should be as wide as icon + text */
 }
 
 .folder-item:hover {
@@ -443,17 +460,39 @@ body {
 }
 
 .folder-item-icon {
-    width: 360px; /* Even bigger preview size */
-    height: 200px; /* Larger aspect ratio for preview */
-    margin-bottom: 25px; /* Even more space between image and text */
-    object-fit: contain; /* Show full image without cropping */
-    border-radius: 10px; /* Larger rounded corners */
-    box-shadow: 0 5px 10px rgba(0,0,0,0.25); /* More prominent shadow */
-    background-color: transparent; /* No white background */
+    width: 56px;   /* Generic folders: small icon */
+    height: 56px;
+    margin-right: 12px; /* Space between icon and text */
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: none;
+    background-color: transparent;
 }
 
-/* Separate styles for top folder item icon (Codenames) */
-.folder-item-icon.codenames {
+/* Projects folder keeps the big, side-by-side previews */
+.projects-folder {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    width: fit-content;
+}
+
+.projects-folder .folder-item {
+    flex-direction: column;
+    align-items: center;
+}
+
+.projects-folder .folder-item-icon {
+    width: 360px;
+    height: 200px;
+    margin-right: 0;
+    margin-bottom: 25px;
+    border-radius: 10px;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.25);
+}
+
+/* Separate styles for top folder item icon (Codenames) within Projects */
+.projects-folder .folder-item-icon.codenames {
     width: 500px;
     height: auto;
     margin-bottom: 25px;
@@ -463,8 +502,8 @@ body {
     background-color: transparent;
 }
 
-/* Separate styles for bottom folder item icon (Mastermind) */
-.folder-item-icon.mastermind {
+/* Separate styles for bottom folder item icon (Mastermind) within Projects */
+.projects-folder .folder-item-icon.mastermind {
     width: auto; /* Narrower width */
     height: 330px; /* Smaller height */
     margin-bottom: 25px;
@@ -601,6 +640,54 @@ body {
 ::-webkit-scrollbar {
     width: 8px; /* Made even thinner */
 }
+
+/* Intro video overlay */
+.intro-video-overlay {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    display: none; /* created hidden, JS will show if video loads */
+    align-items: center;
+    justify-content: center;
+    z-index: 200000; /* above everything */
+}
+
+.intro-video-overlay.show { display: flex; }
+
+.intro-video {
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover; /* cover entire screen */
+}
+
+/* Tap-to-enter overlay text */
+.intro-tap-message {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-family: 'Lucida Grande', sans-serif;
+    font-size: 20px;
+    letter-spacing: 0.5px;
+    background: rgba(0,0,0,.8); /* darker, less transparent */
+}
+
+.intro-unmute-hint {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    pointer-events: none;
+}
+
+/* removed skip button */
 
 ::-webkit-scrollbar-track {
     background: #f5f5f5; /* Lighter track color */
