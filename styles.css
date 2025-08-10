@@ -61,7 +61,7 @@ body {
     width: 48px;
     height: 48px;
     margin-bottom: 4px;
-    filter: drop-shadow(1px 1px 2px rgba(0, 0, 0, 0.3));
+    filter: none; /* Remove 3D drop shadow for cleaner look */
     margin-left: auto;
     margin-right: auto;
 }
@@ -70,10 +70,18 @@ body {
     color: white;
     font-size: 12px;
     text-align: center;
-    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7); /* Simpler, cleaner shadow like second image */
     line-height: 1.2;
     word-wrap: break-word;
+    font-weight: normal; /* Cleaner font weight */
 }
+
+.desktop-icon[data-section="band"] span {
+    color: white;
+    text-shadow: -1px -2px 2px rgba(0, 0, 0, 0.7); /* Shadow bottom right, same thickness */
+    /* font-weight: 600; */
+}
+
 
 /* Window Styles */
 .window {
@@ -565,25 +573,26 @@ body {
     left: 0;
     width: 100%;
     height: 30px; /* XP taskbar height */
-    background: #245ddb; /* XP blue color */
+    background: #2359d7; /* Custom taskbar color */
     display: flex; /* Changed from grid to flex */
     align-items: center; /* Align items vertically */
     padding: 0; /* Remove padding if any */
-    border-top: 1px solid #3c72ff; /* Lighter top border */
+    border-top: 1px solid #6ca0dc; /* Lighter top border */
+    border-left: 1px solid #6ca0dc; /* Left border highlight */
+    border-right: 1px solid #6ca0dc; /* Right border highlight */
     z-index: 10000; /* Ensure it's on top */
-    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 1px 0 #6ca0dc, 0 -1px 3px rgba(0, 0, 0, 0.3); /* Inner highlight and drop shadow */
 }
 
 .taskbar-middle-section {
     flex-grow: 1; /* Allows this section to take up remaining space */
     height: 100%;
-    background: #245ddb; /* XP blue */
+    background: #2359d7; /* Custom taskbar color */
     display: flex;
     justify-content: space-between; /* Pushes programs to left, tray to right */
     align-items: center;
-    padding: 0 6px; /* Padding for items inside */
+    padding: 0 0 0 6px; /* Remove right padding, keep left padding */
     border-left: 1px solid #1c4cb0; /* Separator from start button (optional) */
-    border-right: 1px solid #1c4cb0; /* Separator from end of bar (optional) */
 }
 
 .start-button {
@@ -625,15 +634,15 @@ body {
     display: flex;
     align-items: center;
     height: 100%;
-    padding: 0 6px;
-    /* background-color: transparent; Remove if it was set */
+    padding: 0 5px 0 6px; /* Remove right padding, keep left padding */
+    background: #108fe9; /* Custom clock section color */
 }
 
 .clock {
     color: white;
     font-size: 12px;
     font-weight: normal;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+    text-shadow: none; /* Remove shadow for cleaner look like second image */
 }
 
 /* Scrollbar styling for authentic XP look */
@@ -672,6 +681,7 @@ body {
     font-size: 20px;
     letter-spacing: 0.5px;
     background: rgba(0,0,0,.8); /* darker, less transparent */
+    transform: translateY(-40px) translateX(3px); /* Move text slightly higher and to the right */
 }
 
 .intro-unmute-hint {
@@ -729,17 +739,17 @@ body {
     align-items: center;
     padding: 3px 8px; /* Adjusted padding */
     margin: 0 0px; /* Removed horizontal margin */
-    border: 1px solid #003c74; /* Darker outer border */
-    border-top-color: #6ca0dc; /* Lighter top border */
-    border-left-color: #6ca0dc; /* Lighter left border */
+    border: 1px solid #2a5aa0; /* Darker border, closer to background */
+    border-top-color: #4a8fd8; /* Lighter top border, less bright */
+    border-left-color: #4a8fd8; /* Lighter left border, less bright */
     border-radius: 3px;
-    background: linear-gradient(to bottom, #3d7fcc 0%, #2a62a3 100%); /* XP-style gradient */
+    background: #3980f4; /* Custom unhovered color */
     color: white;
     cursor: pointer;
     min-width: 120px; /* Ensure items have some width */
     height: 26px; /* Match XP taskbar height better */
-    box-shadow: inset 0 1px 0 #6ca0dc, 0 1px 1px rgba(0,0,0,0.2); /* Inner top highlight and subtle drop shadow */
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
+    box-shadow: inset 0 1px 0 #4a8fd8, 0 1px 1px rgba(0,0,0,0.15); /* Reduced highlight and shadow */
+    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.3);
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
@@ -764,8 +774,8 @@ body {
 }
 
 .taskbar-item:hover {
-    /* Slightly lighter/brighter on hover, but not as much as the old style */
-    background: linear-gradient(to bottom, #4e8ed8 0%, #3a72b3 100%);
+    /* Custom hovered color */
+    background: #57a1ff;
     border-top-color: #7cb4e2;
     border-left-color: #7cb4e2;
     text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5); /* Slightly more pronounced shadow on hover */
@@ -1148,4 +1158,23 @@ body {
     border: 1px solid #c0c0c0;
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Desktop selection styles */
+.desktop-selection-box {
+    position: fixed;
+    border: 2px solid #0054e3;
+    background: rgba(0, 84, 227, 0.3);
+    pointer-events: none;
+    z-index: 1000;
+    display: none;
+}
+
+.desktop-selection-box.active {
+    display: block;
+}
+
+.desktop-icon.selected {
+    background-color: rgba(0, 84, 227, 0.3);
+    outline: 2px solid #0054e3;
 }

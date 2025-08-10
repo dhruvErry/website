@@ -19,6 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
         overlay.classList.remove('show');
         overlay.setAttribute('aria-hidden', 'true');
         videoEl.pause();
+        
+        // Force browser zoom to 125% after video ends
+        document.body.style.zoom = "125%";
     };
 
     // First tap starts video with audio; second tap closes
@@ -76,7 +79,7 @@ const portfolioContent = {
                                 <li style="margin-bottom: 10px;">Integrate OpenAI's API to generate smart clues based on target words and board context, simulating human spymaster</li>
                                 <li style="margin-bottom: 10px;">Designed a scalable room-based backend with role-based views, turn logic, and reconnection support for smooth gameplay</li>
                             </ul>
-                            
+                            <br>
                             <p><a href="https://codenamesai.onrender.com" target="_blank" style="color: #0054e3; text-decoration: underline;">Live Demo (Render)</a></p>
                             <br>
                             <p><em>Source code can be viewed on GitHub.</em></p>
@@ -145,9 +148,9 @@ const portfolioContent = {
                         <div class="content">
                             <p><em>Drew University | Client: Pure Green Cement</em></p>
                             <ul>
-                                <li>Built multi-agent pipeline in Python utilizing LLMs and CrewAI agents for large-scale name matching across OpenAlex and Google Scholar, consolidating millions of academic records</li>
-                                <li>Improved pipeline performance by 60% through parallel processing, prompt engineering, and optimized algorithm design</li>
-                                <li>Maintained custom PostgreSQL database to manage millions of matched names, ensuring scalability and production readiness</li>
+                                <li style="margin-bottom: 10px;">Built multi-agent pipeline in Python utilizing LLMs and CrewAI agents for large-scale name matching across OpenAlex and Google Scholar, consolidating millions of academic records</li>
+                                <li style="margin-bottom: 10px;">Improved pipeline performance by 60% through parallel processing, prompt engineering, and optimized algorithm design</li>
+                                <li style="margin-bottom: 10px;">Maintained custom PostgreSQL database to manage millions of matched names, ensuring scalability and production readiness</li>
                             </ul>
                         </div>
                     </div>
@@ -166,9 +169,9 @@ const portfolioContent = {
                         <div class="content">
                             <p><em>ConnectWise (American software company offering IT solutions)</em></p>
                             <ul>
-                                <li>Automated offer letter generation, reducing turnaround time by 40% by building a Dockerized full‑stack web application (Python, Django, HTML/CSS) deployed on Render</li>
-                                <li>Integrated Python libraries including <code>openpyxl</code> and <code>pandas</code> to extract candidate information from Excel, calculate salary structures, and generate personalized Excel files containing offer letters</li>
-                                <li>Delivered a production‑ready internal system used daily by the HR team for recruitment; managed deployment, resolved issues, and iterated based on feedback</li>
+                                <li style="margin-bottom: 10px;">Automated offer letter generation, reducing turnaround time by 40% by building a Dockerized full‑stack web application (Python, Django, HTML/CSS) deployed on Render</li>
+                                <li style="margin-bottom: 10px;">Integrated Python libraries including <code>openpyxl</code> and <code>pandas</code> to extract candidate information from Excel, calculate salary structures, and generate personalized Excel files containing offer letters</li>
+                                <li style="margin-bottom: 10px;">Delivered a production‑ready internal system used daily by the HR team for recruitment; managed deployment, resolved issues, and iterated based on feedback</li>
                             </ul>
                         </div>
                     </div>
@@ -187,9 +190,9 @@ const portfolioContent = {
                         <div class="content">
                             <p><em>Nykaa (Leading e‑commerce platform for fashion and beauty)</em></p>
                             <ul>
-                                <li>Developed a machine learning program using Python's <code>scikit‑learn</code> to analyze product inventory in MySQL, identifying over 10,000 erroneous discount values</li>
-                                <li>Created a program to generate suitable discount ranges for 1 million products, streamlining pricing strategies</li>
-                                <li>Enhanced inventory management with data‑driven solutions, improving accuracy and efficiency in product discounting</li>
+                                <li style="margin-bottom: 10px;">Developed a machine learning program using Python's <code>scikit‑learn</code> to analyze product inventory in MySQL, identifying over 10,000 erroneous discount values</li>
+                                <li style="margin-bottom: 10px;">Created a program to generate suitable discount ranges for 1 million products, streamlining pricing strategies</li>
+                                <li style="margin-bottom: 10px;">Enhanced inventory management with data‑driven solutions, improving accuracy and efficiency in product discounting</li>
                             </ul>
                         </div>
                     </div>
@@ -283,8 +286,9 @@ const portfolioContent = {
                             <img src="https://img.icons8.com/color/48/instagram-new--v1.png" alt="IG" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 8px;"><a href="https://www.instagram.com/greyhound.the.band/" target="_blank">Instagram</a>
                         </div>
                     </div>
-                    <p><strong>Past Performances (NJ):</strong></p>
+                    <p><strong>Past Performances (New Jersey):</strong></p>
                     <ul>
+                        <li>The Madison Arts Center</li>
                         <li>Daddy Matty's BBQ (Madison, since shut down)</li>
                         <li>Stone and Rail (Glen Rock)</li>
                         <li>Blue Moon (South Amboy)</li>
@@ -342,6 +346,76 @@ window.minimizeWindow = function(section) {
     minimizeWindowFunction(section);
 };
 
+// Desktop selection functionality
+let isSelecting = false;
+let selectionStartX = 0;
+let selectionStartY = 0;
+let selectionBox = null;
+
+function initDesktopSelection() {
+    const desktop = document.querySelector('.desktop');
+    selectionBox = document.getElementById('desktop-selection-box');
+    
+    if (!desktop || !selectionBox) return;
+    
+    desktop.addEventListener('mousedown', startSelection);
+    desktop.addEventListener('mousemove', updateSelection);
+    desktop.addEventListener('mouseup', endSelection);
+}
+
+function startSelection(e) {
+    // Only start selection if clicking on empty desktop area (not on icons or windows)
+    if (e.target.closest('.desktop-icon') || e.target.closest('.window')) {
+        return;
+    }
+    
+    isSelecting = true;
+    selectionStartX = e.clientX;
+    selectionStartY = e.clientY;
+    
+    // Start selection box exactly at mouse position
+    selectionBox.style.left = e.pageX + 'px';
+    selectionBox.style.top = e.pageY + 'px';
+    selectionBox.style.width = '0px';
+    selectionBox.style.height = '0px';
+    selectionBox.classList.add('active');
+    
+    e.preventDefault();
+}
+
+function updateSelection(e) {
+    if (!isSelecting) return;
+    
+    const currentX = e.clientX;
+    const currentY = e.clientY;
+    
+    const left = Math.min(selectionStartX, currentX);
+    const top = Math.min(selectionStartY, currentY);
+    const width = Math.abs(currentX - selectionStartX);
+    const height = Math.abs(currentY - selectionStartY);
+    
+    selectionBox.style.left = left + 'px';
+    selectionBox.style.top = top + 'px';
+    selectionBox.style.width = width + 'px';
+    selectionBox.style.height = height + 'px';
+}
+
+function endSelection() {
+    if (!isSelecting) return;
+    
+    isSelecting = false;
+    
+    // Hide selection box after a short delay
+    setTimeout(() => {
+        selectionBox.classList.remove('active');
+    }, 200);
+}
+
+// Initialize desktop selection when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initDesktopSelection();
+});
+
 document.addEventListener('DOMContentLoaded', function() {
     const desktopIcons = document.querySelectorAll('.desktop-icon');
     const taskbarPrograms = document.querySelector('.taskbar .taskbar-programs');
@@ -396,7 +470,8 @@ document.addEventListener('DOMContentLoaded', function() {
             const marginFromIcons = 40; 
             initialScreenCenterLeft = desktopIconsAreaRightEdge + marginFromIcons;
             
-            initialScreenCenterTop = (window.innerHeight / 2) - (fixedWindowHeight / 2); // Keep vertical centering
+            // Position windows higher up, between icons and right edge, not in center
+            initialScreenCenterTop = 80; // Start at 80px from top (below desktop icons)
             
             currentCascadeLineBaseLeft = initialScreenCenterLeft;
             currentCascadeLineBaseTop = initialScreenCenterTop;
@@ -420,11 +495,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 newTop = currentCascadeLineBaseTop;
                 windowsInCurrentLineCount = 1;
             }
-        }
-        // Override placement for Band window: top-right
-        if (sectionId === 'band') {
-            newLeft = Math.max(20, window.innerWidth - fixedWindowWidth - 20);
-            newTop = 20;
         }
         lastPlacedLeftInCurrentLine = newLeft;
         windowEl.style.width = `${fixedWindowWidth}px`; 
