@@ -82,6 +82,11 @@ body {
     /* font-weight: 600; */
 }
 
+/* Align My Band icon label shadow with others while keeping original variant commented above */
+.desktop-icon[data-section="band"] span {
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.7);
+}
+
 
 /* Window Styles */
 .window {
@@ -610,7 +615,6 @@ body {
     justify-content: space-between;
     align-items: center;
     padding-left: 6px;
-    border-left: 1px solid #1c4cb0;
 }
 
 .start-button {
@@ -1192,4 +1196,59 @@ body {
 .desktop-icon.selected {
     background-color: rgba(0, 84, 227, 0.3);
     outline: 2px solid #0054e3;
+}
+
+/* Laptop-only sizing and typography (≤1280px) */
+@media screen and (max-width: 1280px) {
+    /* Per-window sizing */
+    .window[data-section="projects"] {
+        width: 840px;
+        height: 520px;
+    }
+    .window[data-section="education"] {
+        width: 740px;
+        height: 420px;
+    }
+    .window[data-section="contact"] {
+        width: 420px;
+        height: 360px;
+    }
+    .window[data-section="skills"] {
+        width: 640px;
+        height: 420px;
+    }
+    .window[data-section="band"] {
+        width: 840px;
+        height: 560px;
+    }
+    /* Generic fallback */
+    .window:not([data-section="projects"]):not([data-section="education"]):not([data-section="contact"]):not([data-section="skills"]):not([data-section="band"]) {
+        width: 680px;
+        height: 440px;
+    }
+
+    /* In-window font sizing (+1.0px total on laptops) */
+    .window-content h2 { font-size: 20px; }
+    .window-content .content { font-size: 15px; }
+
+    /* Global and UI text (+1.0px total) */
+    body { font-size: 13px; }
+    .desktop-icon span { font-size: 13px; }
+    .window-title { font-size: 13px; }
+    .window-btn { font-size: 11px; }
+    .close-btn::before { font-size: 16px; }
+    .window-close-bottom { font-size: 13px; }
+    .folder-item-title { font-size: 16px; }
+    .folder-item-date { font-size: 13px; }
+    .clock { font-size: 13px; }
+    .intro-tap-message-text { font-size: 21px; }
+    .intro-unmute-hint { font-size: 13px; }
+    .taskbar-item-text { font-size: 13px; }
+    .start-menu { font-size: 13px; }
+    .start-menu-user-name { font-size: 19px; }
+    .all-programs-btn .arrow { font-size: 12px; }
+    .start-menu-footer button { font-size: 13px; }
+    .tech-tag { font-size: 13px; }
+    .tech-date-range { font-size: 13px; }
+    .scroll-arrow { font-size: 29px; }
 }

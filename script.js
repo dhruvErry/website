@@ -20,8 +20,12 @@ document.addEventListener('DOMContentLoaded', () => {
         overlay.setAttribute('aria-hidden', 'true');
         videoEl.pause();
         
-        // Force browser zoom to 125% after video ends
-        document.body.style.zoom = "125%";
+        // Adjust browser zoom by device width: laptops (≤1280px) use 100%, larger use 125%
+        if (window.innerWidth <= 1280) {
+            document.body.style.zoom = "100%";
+        } else {
+            document.body.style.zoom = "125%";
+        }
     };
 
     // First tap starts video with audio; second tap closes
@@ -150,7 +154,8 @@ const portfolioContent = {
                             <ul>
                                 <li style="margin-bottom: 10px;">Built multi-agent pipeline in Python utilizing LLMs and CrewAI agents for large-scale name matching across OpenAlex and Google Scholar, consolidating millions of academic records</li>
                                 <li style="margin-bottom: 10px;">Improved pipeline performance by 60% through parallel processing, prompt engineering, and optimized algorithm design</li>
-                                <li style="margin-bottom: 10px;">Maintained custom PostgreSQL database to manage millions of matched names, ensuring scalability and production readiness</li>
+                                <li style="margin-bottom: 10px;">Ensured high match accuracy and reduced agent load, efficiently storing millions of records in scalable PostgreSQL DB
+</li>
                             </ul>
                         </div>
                     </div>
@@ -169,9 +174,11 @@ const portfolioContent = {
                         <div class="content">
                             <p><em>ConnectWise (American software company offering IT solutions)</em></p>
                             <ul>
-                                <li style="margin-bottom: 10px;">Automated offer letter generation, reducing turnaround time by 40% by building a Dockerized full‑stack web application (Python, Django, HTML/CSS) deployed on Render</li>
+                                <li style="margin-bottom: 10px;">Automated manual, multi-step offer letter creation process with a Dockerized full-stack web app (Python, Django,
+ HTML/CSS) deployed on Render, reducing turnaround time by 75% and cutting staff effort and administrative workload</li>
                                 <li style="margin-bottom: 10px;">Integrated Python libraries including <code>openpyxl</code> and <code>pandas</code> to extract candidate information from Excel, calculate salary structures, and generate personalized Excel files containing offer letters</li>
-                                <li style="margin-bottom: 10px;">Delivered a production‑ready internal system used daily by the HR team for recruitment; managed deployment, resolved issues, and iterated based on feedback</li>
+                                <li style="margin-bottom: 10px;">Delivered a production-ready internal system now used daily by the HR team for recruitment, managing deployment,
+ resolving issues, and improving the app based on feedback.</li>
                             </ul>
                         </div>
                     </div>
@@ -520,6 +527,17 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>`;
         
         document.querySelector('.desktop').appendChild(windowEl);
+        
+        // Clamp initial position on laptops so the window is fully visible
+        if (window.innerWidth <= 1280) {
+            const rect = windowEl.getBoundingClientRect();
+            const margin = 10;
+            const taskbarReserve = 40; // keep some space for taskbar
+            let clampedLeft = Math.max(margin, Math.min(rect.left, window.innerWidth - rect.width - margin));
+            let clampedTop = Math.max(margin, Math.min(rect.top, window.innerHeight - rect.height - taskbarReserve));
+            windowEl.style.left = clampedLeft + 'px';
+            windowEl.style.top = clampedTop + 'px';
+        }
         
         const viewContainer = windowEl.querySelector('.view-container');
         const stickyBottomControls = windowEl.querySelector('.window-bottom-controls');
@@ -1002,16 +1020,36 @@ document.addEventListener('DOMContentLoaded', function() {
 
             let onRightEdge = Math.abs(mouseX - rect.width) < edgeThreshold;
             let onBottomEdge = Math.abs(mouseY - rect.height) < edgeThreshold;
+            let onLeftEdge = mouseX < edgeThreshold;
+            let onTopEdge = mouseY < edgeThreshold;
 
+            // Corner resize modes
             if (onRightEdge && onBottomEdge) {
                 windowEl.style.cursor = 'nwse-resize';
                 currentResizeMode = 'bottom-right';
-            } else if (onRightEdge) {
+            } else if (onLeftEdge && onBottomEdge) {
+                windowEl.style.cursor = 'sw-resize';
+                currentResizeMode = 'bottom-left';
+            } else if (onRightEdge && onTopEdge) {
+                windowEl.style.cursor = 'ne-resize';
+                currentResizeMode = 'top-right';
+            } else if (onLeftEdge && onTopEdge) {
+                windowEl.style.cursor = 'nw-resize';
+                currentResizeMode = 'top-left';
+            }
+            // Edge resize modes
+            else if (onRightEdge) {
                 windowEl.style.cursor = 'ew-resize';
                 currentResizeMode = 'right';
+            } else if (onLeftEdge) {
+                windowEl.style.cursor = 'ew-resize';
+                currentResizeMode = 'left';
             } else if (onBottomEdge) {
                 windowEl.style.cursor = 'ns-resize';
                 currentResizeMode = 'bottom';
+            } else if (onTopEdge) {
+                windowEl.style.cursor = 'ns-resize';
+                currentResizeMode = 'top';
             } else {
                 windowEl.style.cursor = 'default';
                 currentResizeMode = null;
@@ -1026,22 +1064,37 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         windowEl.addEventListener('mousedown', e => {
-            // Do not trigger resize if clicking on scrollbars or window controls
-            if (e.target !== windowEl && e.target.closest('.window-content-main, .window-header, .window-bottom-controls')){
-                 if (!currentResizeMode || (e.target.closest('.window-header') && !e.target.classList.contains('window-btn'))) {
-                     // if it's header but not a button, it means drag, not resize.
-                 } else {
-                    return;
-                 }
+            if (e.target.classList.contains('window-btn')) return;
+
+            // If resize mode isn't set (e.g., user didn't move after cursor change), compute it now
+            if (!currentResizeMode) {
+                const rectNow = windowEl.getBoundingClientRect();
+                const mouseXNow = e.clientX - rectNow.left;
+                const mouseYNow = e.clientY - rectNow.top;
+                const onRightEdgeNow = Math.abs(mouseXNow - rectNow.width) < edgeThreshold;
+                const onBottomEdgeNow = Math.abs(mouseYNow - rectNow.height) < edgeThreshold;
+                const onLeftEdgeNow = mouseXNow < edgeThreshold;
+                const onTopEdgeNow = mouseYNow < edgeThreshold;
+
+                if (onRightEdgeNow && onBottomEdgeNow) currentResizeMode = 'bottom-right';
+                else if (onLeftEdgeNow && onBottomEdgeNow) currentResizeMode = 'bottom-left';
+                else if (onRightEdgeNow && onTopEdgeNow) currentResizeMode = 'top-right';
+                else if (onLeftEdgeNow && onTopEdgeNow) currentResizeMode = 'top-left';
+                else if (onRightEdgeNow) currentResizeMode = 'right';
+                else if (onLeftEdgeNow) currentResizeMode = 'left';
+                else if (onBottomEdgeNow) currentResizeMode = 'bottom';
+                else if (onTopEdgeNow) currentResizeMode = 'top';
             }
-            
-            if (!currentResizeMode) return; // Only start resize if a mode is set by mousemove
-            if (e.target.classList.contains('window-btn')) return; // Don't resize when clicking window buttons
-             // If the click is on the header and not a button, let drag handler take over
-            if (e.target.closest('.window-header') && !e.target.classList.contains('window-btn')) {
+
+            // If on an edge/corner, prefer resizing over dragging (even on header)
+            if (!currentResizeMode) {
+                // Not on an edge: let header handler manage drag if header, otherwise ignore
+                if (e.target.closest('.window-header')) return;
                 return;
             }
 
+            e.preventDefault();
+            e.stopPropagation();
 
             isResizing = true;
             lastMouseDownX = e.clientX;
@@ -1062,24 +1115,50 @@ document.addEventListener('DOMContentLoaded', function() {
                 const deltaY = e_move.clientY - lastMouseDownY;
                 let newWidth = initialWidth;
                 let newHeight = initialHeight;
+                let newLeft = initialX;
+                let newTop = initialY;
 
-                if (currentResizeMode === 'right' || currentResizeMode === 'bottom-right') {
+                // Handle width changes
+                if (currentResizeMode === 'right' || currentResizeMode === 'bottom-right' || currentResizeMode === 'top-right') {
                     newWidth = initialWidth + deltaX;
-                }
-                if (currentResizeMode === 'bottom' || currentResizeMode === 'bottom-right') {
-                    newHeight = initialHeight + deltaY;
+                } else if (currentResizeMode === 'left' || currentResizeMode === 'bottom-left' || currentResizeMode === 'top-left') {
+                    newWidth = initialWidth - deltaX;
+                    newLeft = initialX + deltaX;
                 }
 
+                // Handle height changes
+                if (currentResizeMode === 'bottom' || currentResizeMode === 'bottom-right' || currentResizeMode === 'bottom-left') {
+                    newHeight = initialHeight + deltaY;
+                } else if (currentResizeMode === 'top' || currentResizeMode === 'top-right' || currentResizeMode === 'top-left') {
+                    newHeight = initialHeight - deltaY;
+                    newTop = initialY + deltaY;
+                }
+
+                // Apply minimum constraints
                 newWidth = Math.max(newWidth, minWidth);
                 newHeight = Math.max(newHeight, minHeight);
 
+                // Clamp to viewport (keep some margin and taskbar space)
+                const margin = 10;
+                const taskbarReserve = 40;
+                newLeft = Math.max(margin, Math.min(newLeft, window.innerWidth - newWidth - margin));
+                newTop = Math.max(margin, Math.min(newTop, window.innerHeight - newHeight - taskbarReserve));
+
                 if (animationFrameId) cancelAnimationFrame(animationFrameId);
                 animationFrameId = requestAnimationFrame(() => {
-                    if (currentResizeMode === 'right' || currentResizeMode === 'bottom-right') {
+                    // Update width/height
+                    if (currentResizeMode.includes('right') || currentResizeMode.includes('left')) {
                         windowEl.style.width = `${newWidth}px`;
                     }
-                    if (currentResizeMode === 'bottom' || currentResizeMode === 'bottom-right') {
+                    if (currentResizeMode.includes('bottom') || currentResizeMode.includes('top')) {
                         windowEl.style.height = `${newHeight}px`;
+                    }
+                    // Update position for left/top resizing
+                    if (currentResizeMode.includes('left')) {
+                        windowEl.style.left = `${newLeft}px`;
+                    }
+                    if (currentResizeMode.includes('top')) {
+                        windowEl.style.top = `${newTop}px`;
                     }
                 });
             }
