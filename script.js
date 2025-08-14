@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!overlay || !videoEl) return;
 
     // Replace with your video URL named "merjd" as requested
-    const introSrc = 'merjd.mp4';
+    const introSrc = 'assets/videos/merjd.mp4';
 
     // Prepare video; will start on user tap so we can enable sound
     videoEl.src = introSrc;
